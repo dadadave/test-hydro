@@ -451,7 +451,7 @@ export default function App() {
     } finally {
       setHistLoading(false);
     }
-  }, [sb]);
+  }, [sb, toast, sessions, bouteilles]);
 
   // Charger automatiquement dès que Supabase est prêt et qu'on est sur l'écran historique
   useEffect(() => {
