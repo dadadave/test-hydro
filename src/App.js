@@ -395,6 +395,50 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .fix-empty-icon{font-size:44px;opacity:.35;}
 .fix-empty-txt{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px;text-align:center;}
 
+/* ══ HISTORY DETAIL SECTIONS ══ */
+.hist-section{margin-bottom:12px;}
+.hist-section-hdr{
+  display:flex;align-items:center;gap:8px;padding:6px 10px;
+  border-radius:3px 3px 0 0;border:1px solid;
+  font-family:var(--mono);font-size:8px;letter-spacing:2px;font-weight:700;
+  text-transform:uppercase;
+}
+.hist-section-hdr.test{
+  background:rgba(96,165,250,.06);border-color:rgba(96,165,250,.25);color:var(--blue);
+}
+.hist-section-hdr.corr{
+  background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.25);color:var(--amber);
+}
+.hist-section-hdr.corr-none{
+  background:rgba(42,52,68,.3);border-color:var(--border);color:var(--muted);
+}
+.hist-section-body{border:1px solid var(--border);border-top:none;border-radius:0 0 3px 3px;}
+
+/* Correction rows in history */
+.hcorr-row{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  padding:6px 10px;border-bottom:1px solid rgba(42,52,68,.4);
+  background:rgba(245,158,11,.02);
+}
+.hcorr-row:last-child{border-bottom:none;}
+.hcorr-serial{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--amber2);
+  letter-spacing:1px;min-width:70px;}
+.hcorr-orig{display:flex;gap:3px;flex-wrap:wrap;}
+.hcorr-fixed{display:flex;gap:3px;flex-wrap:wrap;margin-left:4px;}
+.hcorr-arrow{font-size:10px;color:var(--muted);}
+.hcorr-ztag{font-family:var(--mono);font-size:7px;font-weight:700;padding:1px 5px;
+  border-radius:2px;border:1px solid;}
+.hcorr-ztag.orig{color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1);}
+.hcorr-ztag.fixed{color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1);}
+.hcorr-ztag.rejected{color:var(--muted);border-color:var(--border);text-decoration:line-through;}
+.hcorr-meta{font-family:var(--mono);font-size:7px;color:var(--muted);margin-left:auto;}
+.hcorr-note{font-family:var(--mono);font-size:7px;color:var(--amber);width:100%;padding-left:2px;}
+.hcorr-statut{font-family:var(--mono);font-size:7px;font-weight:700;
+  padding:1px 6px;border-radius:2px;border:1px solid;white-space:nowrap;}
+.hcorr-statut.ok {color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08);}
+.hcorr-statut.at {color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08);}
+.hcorr-statut.rj {color:var(--muted);border-color:var(--border);}
+
 /* HISTORY */
 .hist-body{flex:1;overflow:auto;padding:10px;}
 @media(min-width:600px){.hist-body{padding:14px 20px;}}
@@ -745,11 +789,20 @@ export default function App() {
         .order("date", { ascending: false })
         .order("created_at", { ascending: false });
       if (sErr) throw sErr;
+
       const { data: lotsData, error: lErr } = await sb
         .from("lots").select("*").order("lot_num", { ascending: true });
       if (lErr) throw lErr;
+
       const { data: bots, error: bErr } = await sb.from("bouteilles").select("*");
       if (bErr) throw bErr;
+
+      // Fetch all corrections separately
+      const { data: corrData, error: cErr } = await sb
+        .from("corrections").select("*")
+        .order("created_at", { ascending: false });
+      if (cErr) throw cErr;
+
       const assembled = sessions.map(s => {
         const sLots = lotsData.filter(l => l.session_id === s.id).map(l => ({
           ...l, bouteilles: bots.filter(b => b.lot_id === l.id),
@@ -758,7 +811,9 @@ export default function App() {
         const nb_ok  = allB.filter(b => b.succes).length;
         const nb_nok = allB.filter(b => !b.succes && (b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
         const nb_fix = allB.filter(b => b.corrigee).length;
-        return { ...s, lots: sLots, nb_ok, nb_nok, nb_fix, total: allB.length };
+        // Corrections linked to this session
+        const sessionCorrections = (corrData || []).filter(c => c.session_id === s.id);
+        return { ...s, lots: sLots, nb_ok, nb_nok, nb_fix, total: allB.length, corrections: sessionCorrections };
       });
       setHistData(assembled);
     } catch (err) {
@@ -1710,53 +1765,143 @@ export default function App() {
                           </div>
                           {isOpen&&(
                             <div className="sess-detail">
-                              {s.lots.map(lot=>{
-                                const lOk=lot.bouteilles.filter(b=>b.succes).length;
-                                const lNok=lot.bouteilles.filter(b=>!b.succes&&(b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
+
+                              {/* ── SECTION 1 : RÉSULTATS DU TEST ── */}
+                              <div className="hist-section">
+                                <div className="hist-section-hdr test">
+                                  🧪 RÉSULTATS DU TEST
+                                  <span style={{marginLeft:"auto",fontWeight:400,color:"var(--light)"}}>
+                                    {s.total} bts · ✓{s.nb_ok} · ✗{s.nb_nok}
+                                  </span>
+                                </div>
+                                <div className="hist-section-body">
+                                  {s.lots.map(lot=>{
+                                    const lOk=lot.bouteilles.filter(b=>b.succes).length;
+                                    const lNok=lot.bouteilles.filter(b=>!b.succes&&(b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
+                                    return (
+                                      <div className="lot-mini" key={lot.id}
+                                        style={{borderRadius:0,border:"none",borderBottom:"1px solid var(--border)"}}>
+                                        <div className="lmh" style={{borderRadius:0}}>
+                                          <span>LOT</span><span className="lmh-n">{lot.lot_num}</span>
+                                          <span style={{color:"var(--muted)"}}>·</span>
+                                          <span>{lot.bouteilles.length} bts</span>
+                                          <span className="lmh-ok">✓{lOk}</span>
+                                          <span className="lmh-nok">✗{lNok}</span>
+                                        </div>
+                                        <table className="lmt">
+                                          <thead>
+                                            <tr>
+                                              <th style={{width:18}}>#</th>
+                                              <th className="ltn">N° Série</th>
+                                              <th className="ltok">✓</th>
+                                              <th className="lterr" colSpan={4}>Zones défaillantes</th>
+                                            </tr>
+                                            <tr><th/><th/><th/>
+                                              <th className="lterr" style={{color:"#ef4444"}}>Col</th>
+                                              <th className="lterr" style={{color:"#fb923c"}}>Med</th>
+                                              <th className="lterr" style={{color:"#a78bfa"}}>Gal</th>
+                                              <th className="lterr" style={{color:"#60a5fa"}}>Pied</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {lot.bouteilles.map((b,bi)=>(
+                                              <tr key={b.id}>
+                                                <td style={{color:"var(--muted)",fontSize:7}}>{bi+1}</td>
+                                                <td className="tdn">{b.num_serie}</td>
+                                                <td>{b.succes&&<span className="mks">✓</span>}</td>
+                                                <td>{b.zone_col&&<span className="mkx col">✗</span>}</td>
+                                                <td>{b.zone_med&&<span className="mkx med">✗</span>}</td>
+                                                <td>{b.zone_gal&&<span className="mkx gal">✗</span>}</td>
+                                                <td>{b.zone_pied&&<span className="mkx pid">✗</span>}</td>
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* ── SECTION 2 : CORRECTIONS ── */}
+                              {(() => {
+                                const corrs = s.corrections || [];
+                                const hasCorrr = corrs.length > 0;
                                 return (
-                                  <div className="lot-mini" key={lot.id}>
-                                    <div className="lmh">
-                                      <span>LOT</span><span className="lmh-n">{lot.lot_num}</span>
-                                      <span style={{color:"var(--muted)"}}>·</span>
-                                      <span>{lot.bouteilles.length} bts</span>
-                                      <span className="lmh-ok">✓{lOk}</span>
-                                      <span className="lmh-nok">✗{lNok}</span>
+                                  <div className="hist-section">
+                                    <div className={`hist-section-hdr ${hasCorrr ? "corr" : "corr-none"}`}>
+                                      🔧 CORRECTIONS
+                                      {hasCorrr ? (
+                                        <span style={{marginLeft:"auto",fontWeight:400,color:"var(--light)"}}>
+                                          {corrs.filter(c=>c.statut==="corrigee").length} corrigées ·
+                                          {" "}{corrs.filter(c=>c.statut==="en_attente").length} en attente ·
+                                          {" "}{corrs.filter(c=>c.statut==="rejetee").length} rejetées
+                                        </span>
+                                      ) : (
+                                        <span style={{marginLeft:"auto",fontWeight:400,color:"var(--muted)"}}>
+                                          Aucune correction enregistrée
+                                        </span>
+                                      )}
                                     </div>
-                                    <table className="lmt">
-                                      <thead>
-                                        <tr>
-                                          <th style={{width:18}}>#</th>
-                                          <th className="ltn">N° Série</th>
-                                          <th className="ltok">✓</th>
-                                          <th className="lterr" colSpan={4}>Zones</th>
-                                          <th style={{color:"var(--amber)",fontSize:7}}>Corr.</th>
-                                        </tr>
-                                        <tr><th/><th/><th/>
-                                          <th className="lterr" style={{color:"#ef4444"}}>Col</th>
-                                          <th className="lterr" style={{color:"#fb923c"}}>Med</th>
-                                          <th className="lterr" style={{color:"#a78bfa"}}>Gal</th>
-                                          <th className="lterr" style={{color:"#60a5fa"}}>Pied</th>
-                                          <th/>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {lot.bouteilles.map((b,bi)=>(
-                                          <tr key={b.id}>
-                                            <td style={{color:"var(--muted)",fontSize:7}}>{bi+1}</td>
-                                            <td className="tdn">{b.num_serie}</td>
-                                            <td>{b.succes&&<span className="mks">✓</span>}</td>
-                                            <td>{b.zone_col&&<span className="mkx col">✗</span>}</td>
-                                            <td>{b.zone_med&&<span className="mkx med">✗</span>}</td>
-                                            <td>{b.zone_gal&&<span className="mkx gal">✗</span>}</td>
-                                            <td>{b.zone_pied&&<span className="mkx pid">✗</span>}</td>
-                                            <td>{b.corrigee&&<span className="mkcorr">🔧</span>}</td>
-                                          </tr>
-                                        ))}
-                                      </tbody>
-                                    </table>
+                                    {hasCorrr && (
+                                      <div className="hist-section-body">
+                                        {corrs.map(c => {
+                                          const origZones = ZONES.filter(z => c[z.col]);
+                                          const fixedZones = ZONES.filter(z =>
+                                            (c.zones_corrigees || []).includes(z.id));
+                                          return (
+                                            <div className="hcorr-row" key={c.id}>
+                                              <div className="hcorr-serial">{c.num_serie}</div>
+
+                                              {/* Original defect zones */}
+                                              <div className="hcorr-orig">
+                                                {origZones.map(z=>(
+                                                  <span key={z.id} className="hcorr-ztag orig">✗{z.label}</span>
+                                                ))}
+                                              </div>
+
+                                              {/* Arrow */}
+                                              {fixedZones.length > 0 && (
+                                                <span className="hcorr-arrow">→</span>
+                                              )}
+
+                                              {/* Fixed zones */}
+                                              <div className="hcorr-fixed">
+                                                {c.statut === "rejetee" ? (
+                                                  <span className="hcorr-ztag rejected">rejetée</span>
+                                                ) : fixedZones.map(z=>(
+                                                  <span key={z.id} className="hcorr-ztag fixed">✓{z.label}</span>
+                                                ))}
+                                              </div>
+
+                                              {/* Statut badge */}
+                                              <span className={`hcorr-statut ${
+                                                c.statut==="corrigee"  ? "ok" :
+                                                c.statut==="rejetee"   ? "rj" : "at"}`}>
+                                                {c.statut==="corrigee"  ? "✓ CORRIGÉE" :
+                                                 c.statut==="rejetee"   ? "↩ REJETÉE"  : "⏳ EN ATTENTE"}
+                                              </span>
+
+                                              {/* Meta */}
+                                              <div className="hcorr-meta">
+                                                {c.corrigee_par && `👤 ${c.corrigee_par}`}
+                                                {c.corrigee_par && c.created_at && "  "}
+                                                {c.created_at && fmtTime(c.created_at)}
+                                              </div>
+
+                                              {/* Note */}
+                                              {c.note && (
+                                                <div className="hcorr-note">📝 {c.note}</div>
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    )}
                                   </div>
                                 );
-                              })}
+                              })()}
+
                             </div>
                           )}
                         </div>
