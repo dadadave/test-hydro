@@ -38,10 +38,10 @@ const BOTTLE_TYPES = [
   { id: "12.5KG", label: "12.5", unit: "KG", sub: "12.5 kilogrammes" },
 ];
 const ZONES = [
-  { id: "COL",  label: "Col",  full: "Collerette",  color: "#ef4444", col: "zone_col"  },
-  { id: "MED",  label: "Med",  full: "Corps médian", color: "#fb923c", col: "zone_med"  },
-  { id: "GAL",  label: "Gal",  full: "Galbe",        color: "#a78bfa", col: "zone_gal"  },
-  { id: "PIED", label: "Pied", full: "Fond / Pied",  color: "#60a5fa", col: "zone_pied" },
+  { id: "COL",  label: "Col",  full: "Collerette",   color: "#ef4444", col: "zone_col"  },
+  { id: "MED",  label: "Med",  full: "Corps médian",  color: "#fb923c", col: "zone_med"  },
+  { id: "GAL",  label: "Gal",  full: "Galbe",         color: "#a78bfa", col: "zone_gal"  },
+  { id: "PIED", label: "Pied", full: "Fond / Pied",   color: "#60a5fa", col: "zone_pied" },
 ];
 const BATCH_SIZE = 10;
 
@@ -101,8 +101,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .fs-title{font-family:var(--disp);font-size:clamp(28px,9vw,72px);color:var(--text);
   letter-spacing:4px;text-align:center;line-height:1;margin-bottom:6px;}
 .fs-title span{color:var(--amber);}
-.fs-sub{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:2px;
-  text-align:center;margin-bottom:24px;}
+.fs-sub{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:2px;text-align:center;margin-bottom:24px;}
 .card{background:rgba(22,27,36,.97);border:1px solid var(--border);border-radius:4px;
   width:100%;max-width:660px;padding:20px 14px;
   box-shadow:0 20px 48px rgba(0,0,0,.5),0 0 0 1px rgba(245,158,11,.07);}
@@ -119,7 +118,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .m-check{position:absolute;top:6px;right:8px;font-size:13px;color:var(--amber);}
 .m-tag{font-family:var(--mono);font-size:7px;color:var(--amber);letter-spacing:1px;
   border:1px solid rgba(245,158,11,.3);padding:2px 6px;border-radius:2px;background:rgba(245,158,11,.06);}
-.home-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.home-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:0;}
 .home-action-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .action-btn{background:var(--bg3);border:2px solid var(--border);border-radius:4px;
   padding:14px 12px;cursor:pointer;transition:all .18s;
@@ -144,12 +143,10 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .page{min-height:100vh;display:flex;flex-direction:column;}
 .top-bar{background:var(--bg2);border-bottom:2px solid var(--amber);
   padding:9px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0;}
-.top-machine{font-family:var(--disp);font-size:clamp(13px,4vw,20px);letter-spacing:3px;
-  color:var(--amber);white-space:nowrap;}
+.top-machine{font-family:var(--disp);font-size:clamp(13px,4vw,20px);letter-spacing:3px;color:var(--amber);white-space:nowrap;}
 .chips{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
 .chip{font-family:var(--mono);font-size:8px;color:var(--light);
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
-  padding:2px 6px;border-radius:2px;white-space:nowrap;}
+  background:rgba(255,255,255,.04);border:1px solid var(--border);padding:2px 6px;border-radius:2px;white-space:nowrap;}
 .chip span{color:var(--amber2);font-weight:700;}
 .chip.tc{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.07);}
 .chip.tc span{color:var(--amber);}
@@ -181,8 +178,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .pf{display:flex;flex-direction:column;gap:4px;}
 .pf-lbl{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
 .pf-inp{background:var(--bg3);border:1px solid var(--border);border-radius:3px;color:var(--text);
-  font-family:var(--mono);font-size:13px;font-weight:600;padding:8px 10px;outline:none;
-  transition:border .15s;width:100%;}
+  font-family:var(--mono);font-size:13px;font-weight:600;padding:8px 10px;outline:none;transition:border .15s;width:100%;}
 .pf-inp:focus{border-color:var(--amber);box-shadow:0 0 0 2px rgba(245,158,11,.12);}
 .serial-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:12px;}
 @media(min-width:480px){.serial-grid{grid-template-columns:repeat(5,1fr);}}
@@ -193,7 +189,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
   padding:7px 5px;outline:none;text-align:center;letter-spacing:1px;
   transition:border .15s;width:100%;-moz-appearance:textfield;}
 .sc-inp::-webkit-inner-spin-button,.sc-inp::-webkit-outer-spin-button{-webkit-appearance:none;}
-.sc-inp:focus{border-color:var(--amber);box-shadow:0 0 0 2px rgba(245,158,11,.15);}
+.sc-inp:focus{border-color:var(--amber);}
 .sc-inp::placeholder{color:var(--border);font-size:9px;font-weight:400;}
 .sc-inp.fi{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.04);}
 .sc-inp.dp{border-color:#ef4444;background:rgba(239,68,68,.06);}
@@ -226,8 +222,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .z-btn.aGAL {background:rgba(167,139,250,.18);border-color:#a78bfa;color:#a78bfa;}
 .z-btn.aPIED{background:rgba(96,165,250,.18);border-color:#60a5fa;color:#60a5fa;}
 .b-sep{color:rgba(42,52,68,.8);font-size:12px;user-select:none;}
-.b-st{padding:5px 8px;font-family:var(--mono);font-size:8px;font-weight:700;
-  letter-spacing:1px;flex-shrink:0;white-space:nowrap;}
+.b-st{padding:5px 8px;font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:1px;flex-shrink:0;white-space:nowrap;}
 .b-st.bok{color:#10b981;}.b-st.bnok{color:#ef4444;}.b-st.none{color:var(--muted);}
 @media(max-width:479px){.b-st{width:100%;text-align:right;border-top:1px solid rgba(42,52,68,.3);padding:3px 8px;}}
 .val-bar{background:var(--bg2);border-top:1px solid var(--border);
@@ -244,8 +239,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .formula{font-family:var(--mono);font-size:11px;font-weight:700;display:flex;gap:4px;align-items:center;flex-wrap:wrap;}
 .fop{color:var(--muted);}
 .legend{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font-family:var(--mono);font-size:8px;
-  color:var(--muted);padding:5px 10px;background:rgba(0,0,0,.2);
-  border-bottom:1px solid var(--border);flex-shrink:0;}
+  color:var(--muted);padding:5px 10px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border);flex-shrink:0;}
 .li{display:flex;align-items:center;gap:3px;}
 .ldot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
 .zstats{display:flex;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
@@ -302,43 +296,29 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .btn-r:hover{background:rgba(239,68,68,.22);}
 .btn-sm{padding:5px 10px;font-size:10px;letter-spacing:1px;}
 
-/* ══ CORRIGER ══ */
+/* CORRIGER */
 .fix-body{flex:1;overflow:auto;padding:8px 10px;display:flex;flex-direction:column;gap:6px;}
 @media(min-width:600px){.fix-body{padding:10px 20px;}}
 .fix-section-title{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;
   padding:6px 2px;display:flex;align-items:center;gap:8px;}
-
-/* Bottle correction card */
-.fx-card{background:var(--bg2);border:2px solid rgba(239,68,68,.35);border-radius:4px;
-  overflow:hidden;transition:border-color .2s;}
+.fx-card{background:var(--bg2);border:2px solid rgba(239,68,68,.35);border-radius:4px;overflow:hidden;transition:border-color .2s;}
 .fx-card.saved{border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.03);}
 .fx-card.rejected{border-color:rgba(90,106,130,.35);background:rgba(90,106,130,.03);}
-
-/* Card header */
-.fx-hdr{display:flex;align-items:center;gap:8px;padding:9px 12px;flex-wrap:wrap;
-  border-bottom:1px solid var(--border);}
+.fx-hdr{display:flex;align-items:center;gap:8px;padding:9px 12px;flex-wrap:wrap;border-bottom:1px solid var(--border);}
 .fx-serial{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--amber2);letter-spacing:1px;}
-.fx-badge{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;
-  padding:2px 7px;border-radius:2px;border:1px solid;}
+.fx-badge{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:2px;border:1px solid;}
 .fx-badge.machine{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.07);}
 .fx-badge.type{color:var(--blue);border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.06);}
 .fx-badge.date{color:var(--muted);border-color:var(--border);}
 .fx-badge.lot{color:var(--purple);border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.06);}
-.fx-status{margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;
-  padding:3px 10px;border-radius:3px;border:1px solid;}
+.fx-status{margin-left:auto;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:3px;border:1px solid;}
 .fx-status.pending{color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08);}
 .fx-status.done   {color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08);}
 .fx-status.reject {color:var(--muted);border-color:var(--border);background:rgba(255,255,255,.03);}
-
-/* Original defect zones (read-only display) */
 .fx-orig{padding:8px 12px;border-bottom:1px solid var(--border);}
-.fx-orig-lbl{font-family:var(--mono);font-size:7px;color:var(--muted);letter-spacing:1px;
-  text-transform:uppercase;margin-bottom:5px;}
+.fx-orig-lbl{font-family:var(--mono);font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
 .fx-zone-tags{display:flex;gap:5px;flex-wrap:wrap;}
-.fzt{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 9px;
-  border-radius:2px;border:1px solid;}
-
-/* Correction zone toggles */
+.fzt{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 9px;border-radius:2px;border:1px solid;}
 .fx-zones{padding:8px 12px;border-bottom:1px solid var(--border);}
 .fx-zones-lbl{font-family:var(--mono);font-size:7px;color:var(--amber);letter-spacing:1px;
   text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
@@ -353,8 +333,6 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .fzb.sel-MED {background:rgba(251,146,60,.18);border-color:#fb923c;color:#fb923c;}
 .fzb.sel-GAL {background:rgba(167,139,250,.18);border-color:#a78bfa;color:#a78bfa;}
 .fzb.sel-PIED{background:rgba(96,165,250,.18);border-color:#60a5fa;color:#60a5fa;}
-
-/* Bottom of fix card */
 .fx-bottom{padding:8px 12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .fx-note{background:var(--bg3);border:1px solid var(--border);border-radius:3px;
   color:var(--text);font-family:var(--mono);font-size:10px;padding:6px 10px;
@@ -366,78 +344,24 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
   padding:6px 10px;outline:none;transition:border .15s;width:130px;}
 .fx-op:focus{border-color:var(--amber);}
 .fx-op::placeholder{color:var(--muted);font-weight:400;}
-
-/* Fix stats strip */
-.fix-stats{display:flex;flex-wrap:wrap;background:var(--bg3);
-  border-bottom:1px solid var(--border);flex-shrink:0;}
-.fss{flex:1;min-width:60px;padding:7px 10px;border-right:1px solid var(--border);
-  display:flex;flex-direction:column;gap:1px;}
+.fix-stats{display:flex;flex-wrap:wrap;background:var(--bg3);border-bottom:1px solid var(--border);flex-shrink:0;}
+.fss{flex:1;min-width:60px;padding:7px 10px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:1px;}
 .fss:last-child{border-right:none;}
 .fss-v{font-family:var(--disp);font-size:clamp(16px,4vw,22px);letter-spacing:1px;line-height:1;}
 .fss-l{font-family:var(--mono);font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-
-/* Fix zone breakdown */
-.fix-zone-summary{display:flex;flex-wrap:wrap;background:var(--bg2);
-  border-bottom:1px solid var(--border);flex-shrink:0;}
-.fzs{flex:1;min-width:60px;padding:6px 10px;border-right:1px solid var(--border);
-  display:flex;flex-direction:column;gap:2px;}
+.fix-zone-summary{display:flex;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
+.fzs{flex:1;min-width:60px;padding:6px 10px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:2px;}
 .fzs:last-child{border-right:none;}
 .fzs-id{font-family:var(--mono);font-size:7px;letter-spacing:2px;font-weight:700;text-transform:uppercase;}
 .fzs-n{font-family:var(--disp);font-size:18px;letter-spacing:1px;line-height:1;}
 .fzs-sub{font-family:var(--mono);font-size:7px;color:var(--muted);}
-
 .fix-bar{background:var(--bg2);border-top:1px solid var(--border);
   padding:9px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0;}
 .fix-loading{display:flex;align-items:center;justify-content:center;height:200px;
   font-family:var(--mono);font-size:11px;color:var(--muted);gap:10px;}
-.fix-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  height:280px;gap:14px;}
+.fix-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:280px;gap:14px;}
 .fix-empty-icon{font-size:44px;opacity:.35;}
 .fix-empty-txt{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px;text-align:center;}
-
-/* ══ HISTORY DETAIL SECTIONS ══ */
-.hist-section{margin-bottom:12px;}
-.hist-section-hdr{
-  display:flex;align-items:center;gap:8px;padding:6px 10px;
-  border-radius:3px 3px 0 0;border:1px solid;
-  font-family:var(--mono);font-size:8px;letter-spacing:2px;font-weight:700;
-  text-transform:uppercase;
-}
-.hist-section-hdr.test{
-  background:rgba(96,165,250,.06);border-color:rgba(96,165,250,.25);color:var(--blue);
-}
-.hist-section-hdr.corr{
-  background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.25);color:var(--amber);
-}
-.hist-section-hdr.corr-none{
-  background:rgba(42,52,68,.3);border-color:var(--border);color:var(--muted);
-}
-.hist-section-body{border:1px solid var(--border);border-top:none;border-radius:0 0 3px 3px;}
-
-/* Correction rows in history */
-.hcorr-row{
-  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
-  padding:6px 10px;border-bottom:1px solid rgba(42,52,68,.4);
-  background:rgba(245,158,11,.02);
-}
-.hcorr-row:last-child{border-bottom:none;}
-.hcorr-serial{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--amber2);
-  letter-spacing:1px;min-width:70px;}
-.hcorr-orig{display:flex;gap:3px;flex-wrap:wrap;}
-.hcorr-fixed{display:flex;gap:3px;flex-wrap:wrap;margin-left:4px;}
-.hcorr-arrow{font-size:10px;color:var(--muted);}
-.hcorr-ztag{font-family:var(--mono);font-size:7px;font-weight:700;padding:1px 5px;
-  border-radius:2px;border:1px solid;}
-.hcorr-ztag.orig{color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1);}
-.hcorr-ztag.fixed{color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1);}
-.hcorr-ztag.rejected{color:var(--muted);border-color:var(--border);text-decoration:line-through;}
-.hcorr-meta{font-family:var(--mono);font-size:7px;color:var(--muted);margin-left:auto;}
-.hcorr-note{font-family:var(--mono);font-size:7px;color:var(--amber);width:100%;padding-left:2px;}
-.hcorr-statut{font-family:var(--mono);font-size:7px;font-weight:700;
-  padding:1px 6px;border-radius:2px;border:1px solid;white-space:nowrap;}
-.hcorr-statut.ok {color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08);}
-.hcorr-statut.at {color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08);}
-.hcorr-statut.rj {color:var(--muted);border-color:var(--border);}
 
 /* HISTORY */
 .hist-body{flex:1;overflow:auto;padding:10px;}
@@ -469,6 +393,9 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .ds.dok{color:#10b981;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.06);}
 .ds.dnok{color:#ef4444;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06);}
 .ds.dtx{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);}
+.day-sub-title{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--muted);
+  text-transform:uppercase;padding:6px 4px;margin-top:6px;margin-bottom:4px;
+  border-bottom:1px solid rgba(42,52,68,.6);display:flex;align-items:center;gap:6px;}
 .med-block{margin-bottom:10px;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
 .med-hdr{display:flex;align-items:center;gap:7px;padding:7px 10px;background:var(--bg3);flex-wrap:wrap;}
 .med-name{font-family:var(--disp);font-size:clamp(13px,4vw,17px);letter-spacing:3px;color:var(--amber);}
@@ -478,13 +405,18 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .mpill.mo{color:#10b981;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.06);}
 .mpill.mn{color:#ef4444;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06);}
 .mpill.mx{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);}
+.mpill.mfix{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);}
 .med-dl{margin-left:auto;}
 .sess-card{border-top:1px solid var(--border);background:var(--bg2);}
+.sess-card.corr-sess{border-top:1px solid rgba(245,158,11,.2);background:rgba(245,158,11,.02);}
 .sess-hdr{display:flex;align-items:center;gap:7px;padding:7px 10px;
   cursor:pointer;user-select:none;flex-wrap:wrap;-webkit-tap-highlight-color:transparent;}
 .sess-hdr:hover{background:rgba(245,158,11,.03);}
 .sh-type{font-family:var(--mono);font-size:7px;color:var(--amber);letter-spacing:1px;
   border:1px solid rgba(245,158,11,.3);padding:2px 5px;border-radius:2px;background:rgba(245,158,11,.06);}
+.sh-tag-corr{font-family:var(--mono);font-size:7px;color:var(--amber);letter-spacing:1px;
+  border:1px solid rgba(245,158,11,.4);padding:2px 6px;border-radius:2px;
+  background:rgba(245,158,11,.1);font-weight:700;}
 .sh-op{font-family:var(--mono);font-size:8px;color:var(--light);}
 .sh-time{font-family:var(--mono);font-size:8px;color:var(--muted);}
 .sh-pills{display:flex;gap:4px;flex-wrap:wrap;}
@@ -493,6 +425,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .shp.so{color:#10b981;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.06);}
 .shp.sn{color:#ef4444;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06);}
 .shp.sx{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);}
+.shp.sc{color:var(--amber);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);}
 .sh-chev{font-size:10px;color:var(--muted);transition:transform .2s;margin-left:auto;flex-shrink:0;}
 .sh-chev.open{transform:rotate(90deg);}
 .sess-detail{border-top:1px solid var(--border);padding:8px 10px;}
@@ -509,6 +442,24 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .lmt thead th.ltok{color:#10b981;}
 .lmt thead th.lterr{color:#ef4444;background:rgba(239,68,68,.04);}
 .lmt tbody td{padding:3px 5px;border:1px solid rgba(42,52,68,.5);text-align:center;}
+/* Correction session detail rows */
+.corr-row{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:6px 10px;
+  border-bottom:1px solid rgba(42,52,68,.3);background:rgba(245,158,11,.02);}
+.corr-row:last-child{border-bottom:none;}
+.cr-serial{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--amber2);letter-spacing:1px;min-width:70px;}
+.cr-zones{display:flex;gap:3px;flex-wrap:wrap;}
+.cr-arrow{font-size:10px;color:var(--muted);}
+.cr-ztag{font-family:var(--mono);font-size:7px;font-weight:700;padding:1px 5px;border-radius:2px;border:1px solid;}
+.cr-ztag.orig{color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1);}
+.cr-ztag.fixed{color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1);}
+.cr-ztag.rj{color:var(--muted);border-color:var(--border);text-decoration:line-through;}
+.cr-statut{font-family:var(--mono);font-size:7px;font-weight:700;padding:1px 6px;border-radius:2px;border:1px solid;white-space:nowrap;}
+.cr-statut.ok{color:#10b981;border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.08);}
+.cr-statut.at{color:#ef4444;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08);}
+.cr-statut.rj{color:var(--muted);border-color:var(--border);}
+.cr-meta{font-family:var(--mono);font-size:7px;color:var(--muted);margin-left:auto;}
+.cr-note{font-family:var(--mono);font-size:7px;color:var(--amber);width:100%;padding-left:2px;}
+
 .sav-ov{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;
   justify-content:center;z-index:9999;backdrop-filter:blur(4px);}
 .sav-box{background:var(--bg2);border:1px solid var(--amber);border-radius:4px;
@@ -553,14 +504,13 @@ export default function App() {
   const [saving,    setSaving]    = useState(false);
   const [syncState, setSyncState] = useState("idle");
 
-  // ── CORRIGER state ──
-  const [fixLoading,  setFixLoading]  = useState(false);
-  const [failedBots,  setFailedBots]  = useState([]);
-  // fixState[botId] = { zonesFixed: Set<zoneId>, note, operateur, statut }
-  const [fixState,    setFixState]    = useState({});
-  const [fixSaving,   setFixSaving]   = useState(new Set());
+  // CORRIGER
+  const [fixLoading, setFixLoading] = useState(false);
+  const [failedBots, setFailedBots] = useState([]);
+  const [fixState,   setFixState]   = useState({});
+  const [fixSaving,  setFixSaving]  = useState(new Set());
 
-  // ── History ──
+  // History
   const [histData,    setHistData]    = useState(null);
   const [histLoading, setHistLoading] = useState(false);
   const [searchDate,  setSearchDate]  = useState("");
@@ -575,14 +525,11 @@ export default function App() {
     setTimeout(() => setToasts(t => t.filter(x => x.id !== id)), 3500);
   }, []);
 
-  /* ─────────────────────────────────────────────────────────────
-     CORRIGER — Load
-  ───────────────────────────────────────────────────────────── */
+  /* ── CORRIGER: Load ── */
   const loadFailedBottles = useCallback(async () => {
     if (!sb) return;
     setFixLoading(true);
     try {
-      // Load all failed bottles with session info
       const { data, error } = await sb
         .from("bouteilles")
         .select("*, lots(lot_num, session_id, sessions(id, machine, bottle_type, date, operateur, pression))")
@@ -591,39 +538,29 @@ export default function App() {
         .order("created_at", { ascending: false });
       if (error) throw error;
 
-      // Load existing corrections for these bottles
       const botIds = (data || []).map(b => b.id);
       let corrections = [];
       if (botIds.length > 0) {
-        const { data: corrData } = await sb
-          .from("corrections")
-          .select("*")
-          .in("bouteille_id", botIds);
-        corrections = corrData || [];
+        const { data: cd } = await sb.from("corrections").select("*").in("bouteille_id", botIds);
+        corrections = cd || [];
       }
-
-      // Merge
-      const corrMap = corrections.reduce((acc, c) => {
-        acc[c.bouteille_id] = c; return acc;
-      }, {});
+      const corrMap = corrections.reduce((acc, c) => { acc[c.bouteille_id] = c; return acc; }, {});
 
       setFailedBots(data || []);
-
-      // Init fixState from existing corrections
       const initState = {};
       (data || []).forEach(b => {
-        const existing = corrMap[b.id];
+        const ex = corrMap[b.id];
         initState[b.id] = {
-          zonesFixed: new Set(existing?.zones_corrigees || []),
-          note:       existing?.note || "",
-          operateur:  existing?.corrigee_par || "",
-          statut:     existing?.statut || "en_attente",
-          correctionId: existing?.id || null,
+          zonesFixed:   new Set(ex?.zones_corrigees || []),
+          note:         ex?.note || "",
+          operateur:    ex?.corrigee_par || "",
+          statut:       ex?.statut || "en_attente",
+          correctionId: ex?.id || null,
         };
       });
       setFixState(initState);
     } catch (err) {
-      toast("Erreur chargement : " + err.message, true);
+      toast("Erreur : " + err.message, true);
     } finally {
       setFixLoading(false);
     }
@@ -633,34 +570,23 @@ export default function App() {
     if (screen === "corriger" && sb) loadFailedBottles();
   }, [screen, sb]);
 
-  /* ─────────────────────────────────────────────────────────────
-     CORRIGER — Toggle zone fixed
-  ───────────────────────────────────────────────────────────── */
   const toggleFixZone = (botId, zoneId) => {
     setFixState(prev => {
-      const cur = prev[botId] || { zonesFixed: new Set(), note: "", operateur: "", statut: "en_attente" };
+      const cur = prev[botId] || { zonesFixed: new Set() };
       const set = new Set(cur.zonesFixed);
       set.has(zoneId) ? set.delete(zoneId) : set.add(zoneId);
       return { ...prev, [botId]: { ...cur, zonesFixed: set } };
     });
   };
+  const setFixField = (botId, field, val) =>
+    setFixState(prev => ({ ...prev, [botId]: { ...(prev[botId] || {}), [field]: val } }));
 
-  const setFixField = (botId, field, val) => {
-    setFixState(prev => ({
-      ...prev,
-      [botId]: { ...(prev[botId] || {}), [field]: val },
-    }));
-  };
-
-  /* ─────────────────────────────────────────────────────────────
-     CORRIGER — Save one bottle correction
-  ───────────────────────────────────────────────────────────── */
+  /* ── CORRIGER: Save — also writes to corrections table AND resets history cache ── */
   const saveCorrection = async (b, statut) => {
     if (!sb) return;
-    const st = fixState[b.id] || {};
+    const st   = fixState[b.id] || {};
     const sess = b.lots?.sessions || {};
     setFixSaving(p => new Set([...p, b.id]));
-
     try {
       const payload = {
         bouteille_id:    b.id,
@@ -682,31 +608,23 @@ export default function App() {
       };
 
       if (st.correctionId) {
-        // Update existing
         const { error } = await sb.from("corrections")
-          .update({ ...payload, updated_at: new Date().toISOString() })
-          .eq("id", st.correctionId);
+          .update(payload).eq("id", st.correctionId);
         if (error) throw error;
       } else {
-        // Insert new
-        const { data: newCorr, error } = await sb.from("corrections")
-          .insert(payload).select("id").single();
+        const { data: nc, error } = await sb.from("corrections").insert(payload).select("id").single();
         if (error) throw error;
-        setFixState(prev => ({
-          ...prev,
-          [b.id]: { ...prev[b.id], correctionId: newCorr.id, statut },
-        }));
+        setFixState(prev => ({ ...prev, [b.id]: { ...prev[b.id], correctionId: nc.id } }));
       }
 
-      // Update bouteille.corrigee flag
       await sb.from("bouteilles").update({
         corrigee:        statut === "corrigee",
         note_correction: st.note || null,
       }).eq("id", b.id);
 
       setFixState(prev => ({ ...prev, [b.id]: { ...prev[b.id], statut } }));
-      setHistData(null); // reset history cache
-      toast(statut === "corrigee" ? "✅ Correction sauvegardée !" : "↩ Bouteille marquée rejetée.");
+      setHistData(null); // force reload history so correction session appears
+      toast(statut === "corrigee" ? "✅ Correction sauvegardée dans l'historique !" : "↩ Marquée rejetée.");
     } catch (err) {
       toast("Erreur : " + err.message, true);
     } finally {
@@ -714,30 +632,21 @@ export default function App() {
     }
   };
 
-  /* ─────────────────────────────────────────────────────────────
-     CORRIGER — Stats derived
-  ───────────────────────────────────────────────────────────── */
   const fixStats = {
     total:    failedBots.length,
     pending:  failedBots.filter(b => (fixState[b.id]?.statut || "en_attente") === "en_attente").length,
     done:     failedBots.filter(b => fixState[b.id]?.statut === "corrigee").length,
     rejected: failedBots.filter(b => fixState[b.id]?.statut === "rejetee").length,
   };
-  const fixZoneCounts = ZONES.map(z => ({
-    ...z,
-    count: failedBots.filter(b => b[z.col]).length,
-  }));
+  const fixZoneCounts = ZONES.map(z => ({ ...z, count: failedBots.filter(b => b[z.col]).length }));
 
-  /* ─────────────────────────────────────────────────────────────
-     CORRIGER — Excel export
-  ───────────────────────────────────────────────────────────── */
   const exportCorrections = () => {
     if (!XLSX) return;
     const rows = [
       ["RAPPORT CORRECTIONS — TEST HYDROSTATIQUE"], [],
       ["N° Série","Machine","Type","Date test","Lot","Opérateurs",
        "Zone Col","Zone Med","Zone Gal","Zone Pied",
-       "Zones corrigées","Corrigée par","Note","Statut","Date correction"],
+       "Zones corrigées","Corrigée par","Note","Statut"],
     ];
     failedBots.forEach(b => {
       const sess = b.lots?.sessions || {};
@@ -746,76 +655,92 @@ export default function App() {
         b.num_serie, sess.machine||"—", sess.bottle_type||"—",
         sess.date||"—", `Lot ${b.lots?.lot_num||"?"}`, sess.operateur||"—",
         b.zone_col?"✗":"", b.zone_med?"✗":"", b.zone_gal?"✗":"", b.zone_pied?"✗":"",
-        [...(st.zonesFixed||[])].join(", ") || "—",
-        st.operateur||"—", st.note||"—",
-        st.statut||"en_attente",
-        new Date().toLocaleDateString("fr-FR"),
+        [...(st.zonesFixed||[])].join(", ")||"—", st.operateur||"—", st.note||"—", st.statut||"en_attente",
       ]);
     });
-
-    // Stats sheet
     const statsRows = [
       ["STATISTIQUES CORRECTIONS"], [],
-      ["", "Total", "En attente", "Corrigées", "Rejetées", "Taux correction %"],
+      ["","Total","En attente","Corrigées","Rejetées","Taux correction %"],
       ["Global", fixStats.total, fixStats.pending, fixStats.done, fixStats.rejected,
-        pct(fixStats.done, fixStats.total) + "%"],
-      [],
-      ["DÉFAUTS PAR ZONE"], [],
+       pct(fixStats.done, fixStats.total)+"%"],
+      [],["DÉFAUTS PAR ZONE"],[],
       ["Zone","Nom complet","Nb bouteilles","% du total NOK"],
-      ...fixZoneCounts.map(z => [z.id, z.full, z.count, pct(z.count, fixStats.total) + "%"]),
+      ...fixZoneCounts.map(z=>[z.id,z.full,z.count,pct(z.count,fixStats.total)+"%"]),
     ];
-
     const wb = XLSX.utils.book_new();
     const ws1 = XLSX.utils.aoa_to_sheet(rows);
-    ws1["!cols"] = [{wch:14},{wch:14},{wch:8},{wch:10},{wch:6},{wch:18},
-      {wch:6},{wch:6},{wch:6},{wch:6},{wch:16},{wch:14},{wch:20},{wch:12},{wch:14}];
+    ws1["!cols"]=[{wch:14},{wch:14},{wch:8},{wch:10},{wch:6},{wch:18},{wch:6},{wch:6},{wch:6},{wch:6},{wch:16},{wch:14},{wch:20},{wch:12}];
     XLSX.utils.book_append_sheet(wb, ws1, "Corrections");
     const ws2 = XLSX.utils.aoa_to_sheet(statsRows);
-    ws2["!cols"] = [{wch:20},{wch:8},{wch:12},{wch:12},{wch:10},{wch:20}];
+    ws2["!cols"]=[{wch:20},{wch:8},{wch:12},{wch:12},{wch:10},{wch:20}];
     XLSX.utils.book_append_sheet(wb, ws2, "Statistiques");
     XLSX.writeFile(wb, `corrections_${new Date().toISOString().split("T")[0]}.xlsx`);
     toast("✅ Rapport corrections exporté !");
   };
 
-  /* ─────────────────────────────────────────────────────────────
-     TEST — Helpers
-  ───────────────────────────────────────────────────────────── */
+  /* ── History: Load ── */
   const loadHistory = useCallback(async () => {
     if (!sb) return;
     setHistLoading(true);
     try {
       const { data: sessions, error: sErr } = await sb
         .from("sessions").select("*")
-        .order("date", { ascending: false })
-        .order("created_at", { ascending: false });
+        .order("date", { ascending: false }).order("created_at", { ascending: false });
       if (sErr) throw sErr;
 
-      const { data: lotsData, error: lErr } = await sb
-        .from("lots").select("*").order("lot_num", { ascending: true });
+      const { data: lotsData, error: lErr } = await sb.from("lots").select("*").order("lot_num");
       if (lErr) throw lErr;
 
       const { data: bots, error: bErr } = await sb.from("bouteilles").select("*");
       if (bErr) throw bErr;
 
-      // Fetch all corrections separately
+      // Load ALL corrections (they are separate from sessions — we group them per machine/day)
       const { data: corrData, error: cErr } = await sb
-        .from("corrections").select("*")
-        .order("created_at", { ascending: false });
+        .from("corrections").select("*").order("created_at", { ascending: false });
       if (cErr) throw cErr;
 
       const assembled = sessions.map(s => {
         const sLots = lotsData.filter(l => l.session_id === s.id).map(l => ({
           ...l, bouteilles: bots.filter(b => b.lot_id === l.id),
         }));
-        const allB   = sLots.flatMap(l => l.bouteilles);
+        const allB  = sLots.flatMap(l => l.bouteilles);
         const nb_ok  = allB.filter(b => b.succes).length;
         const nb_nok = allB.filter(b => !b.succes && (b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
         const nb_fix = allB.filter(b => b.corrigee).length;
-        // Corrections linked to this session
-        const sessionCorrections = (corrData || []).filter(c => c.session_id === s.id);
-        return { ...s, lots: sLots, nb_ok, nb_nok, nb_fix, total: allB.length, corrections: sessionCorrections };
+        return { ...s, lots: sLots, nb_ok, nb_nok, nb_fix, total: allB.length, type: "test" };
       });
-      setHistData(assembled);
+
+      // Group corrections by date+machine as "virtual sessions"
+      const corrByDateMachine = (corrData || []).reduce((acc, c) => {
+        const key = `${c.date_test}||${c.machine}`;
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(c);
+        return acc;
+      }, {});
+
+      const corrSessions = Object.entries(corrByDateMachine).map(([key, corrs]) => {
+        const [date, machine] = key.split("||");
+        const nbCorr     = corrs.filter(c => c.statut === "corrigee").length;
+        const nbPending  = corrs.filter(c => c.statut === "en_attente").length;
+        const nbRejected = corrs.filter(c => c.statut === "rejetee").length;
+        // Use first correction's timestamp for ordering
+        return {
+          id:          `corr_${key}`,
+          date,
+          machine,
+          bottle_type: corrs[0]?.bottle_type || "—",
+          operateur:   corrs.map(c => c.corrigee_par).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(", ") || null,
+          created_at:  corrs[0]?.created_at,
+          type:        "corrections",
+          corrections: corrs,
+          nb_corrigees: nbCorr,
+          nb_pending:   nbPending,
+          nb_rejected:  nbRejected,
+          total:        corrs.length,
+        };
+      });
+
+      setHistData([...assembled, ...corrSessions]);
     } catch (err) {
       toast("Erreur : " + err.message, true);
       setHistData([]);
@@ -828,24 +753,29 @@ export default function App() {
     if (screen === "history" && sb && histData === null) loadHistory();
   }, [screen, sb, histData, loadHistory]);
 
-  const histByDayMachine = (histData || []).reduce((acc, s) => {
+  /* ── History: Group by day → machine, separate test sessions from correction sessions ── */
+  const histByDay = (histData || []).reduce((acc, s) => {
     const day = s.date;
-    if (!acc[day]) acc[day] = {};
-    if (!acc[day][s.machine]) acc[day][s.machine] = [];
-    acc[day][s.machine].push(s);
+    if (!acc[day]) acc[day] = { tests: {}, corrections: {} };
+    if (s.type === "test") {
+      if (!acc[day].tests[s.machine]) acc[day].tests[s.machine] = [];
+      acc[day].tests[s.machine].push(s);
+    } else {
+      if (!acc[day].corrections[s.machine]) acc[day].corrections[s.machine] = [];
+      acc[day].corrections[s.machine].push(s);
+    }
     return acc;
   }, {});
-  const allDays      = Object.keys(histByDayMachine);
+
+  const allDays      = Object.keys(histByDay).sort((a, b) => b.localeCompare(a));
   const filteredDays = searchDate ? allDays.filter(d => d === searchDate) : allDays;
 
+  /* ── Serial handling ── */
   const handleSerial = (i, raw) => {
     const val = raw.replace(/\D/g, "");
     const next = [...serials]; next[i] = val; setSerials(next);
     const errs = {};
-    next.forEach((s, j) => {
-      if (!s) return;
-      if (next.filter((x, k) => k !== j && x === s).length > 0) errs[j] = true;
-    });
+    next.forEach((s, j) => { if (!s) return; if (next.filter((x,k)=>k!==j&&x===s).length>0) errs[j]=true; });
     setDupErrors(errs);
   };
 
@@ -873,11 +803,11 @@ export default function App() {
   const gtTotal = allEntries.length;
   const gtOk    = allEntries.filter(e => e.zones.includes("S")).length;
   const gtNok   = allEntries.filter(e => e.zones.length > 0 && !e.zones.includes("S")).length;
-  const gtTaux  = (gtOk + gtNok) > 0 ? Math.round(gtOk / (gtOk + gtNok) * 100) : null;
+  const gtTaux  = (gtOk+gtNok) > 0 ? Math.round(gtOk/(gtOk+gtNok)*100) : null;
   const zoneStats = ZONES.map(z => {
     const count  = allEntries.filter(e => e.zones.includes(z.id)).length;
-    const pctNok = gtNok   > 0 ? Math.round(count / gtNok   * 100) : 0;
-    const pctTot = gtTotal > 0 ? Math.round(count / gtTotal * 100) : 0;
+    const pctNok = gtNok   > 0 ? Math.round(count/gtNok*100)   : 0;
+    const pctTot = gtTotal > 0 ? Math.round(count/gtTotal*100) : 0;
     return { ...z, count, pctNok, pctTot };
   });
 
@@ -890,13 +820,13 @@ export default function App() {
         const ops = [params.op1, params.op2].filter(Boolean).join(" / ");
         const { data, error } = await sb.from("sessions").insert({
           machine: machine.label, bottle_type: bottleType,
-          operateur: ops || null, date: params.date, pression: params.pression,
+          operateur: ops||null, date: params.date, pression: params.pression,
         }).select("id").single();
         if (error) throw error;
         sid = data.id; setSessionId(sid);
       }
       const { data: lotData, error: lErr } = await sb.from("lots")
-        .insert({ session_id: sid, lot_num: lots.length + 1 }).select("id").single();
+        .insert({ session_id: sid, lot_num: lots.length+1 }).select("id").single();
       if (lErr) throw lErr;
       const rows = filled.map(i => {
         const z = checks[i] || new Set();
@@ -907,94 +837,381 @@ export default function App() {
       const { error: bErr } = await sb.from("bouteilles").insert(rows);
       if (bErr) throw bErr;
       setLots(prev => [...prev, {
-        lotNum: prev.length + 1,
-        serials: filled.map(i => ({ num: serials[i].trim(), zones: [...(checks[i] || [])] })),
+        lotNum: prev.length+1,
+        serials: filled.map(i => ({ num: serials[i].trim(), zones: [...(checks[i]||[])] })),
       }]);
       setSerials(Array(BATCH_SIZE).fill(""));
-      setDupErrors({});
-      setChecks({});
-      setSyncState("ok");
-      setHistData(null);
+      setDupErrors({}); setChecks({});
+      setSyncState("ok"); setHistData(null);
       setScreen("recap");
-      toast(`✅ Lot ${lots.length + 1} sauvegardé !`);
+      toast(`✅ Lot ${lots.length+1} sauvegardé !`);
     } catch (err) {
-      setSyncState("err");
-      toast(`⚠️ ${err.message}`, true);
-    } finally {
-      setSaving(false);
-    }
+      setSyncState("err"); toast(`⚠️ ${err.message}`, true);
+    } finally { setSaving(false); }
   };
 
-  /* Excel builders */
+  /* ── Excel builders ── */
   function computeStats(data) {
-    const byDay = {}, byWeek = {}, byMonth = {};
-    (data || []).forEach(s => {
-      const day = s.date; const week = getWeekKey(day); const month = getMonthKey(day);
-      [[byDay,day],[byWeek,week],[byMonth,month]].forEach(([obj,key]) => {
-        if (!obj[key]) obj[key] = { total:0,ok:0,nok:0 };
-        obj[key].total += s.total; obj[key].ok += s.nb_ok; obj[key].nok += s.nb_nok;
+    const byDay={},byWeek={},byMonth={};
+    (data||[]).filter(s=>s.type==="test").forEach(s=>{
+      const day=s.date,week=getWeekKey(day),month=getMonthKey(day);
+      const bots=(s.lots||[]).flatMap(l=>l.bouteilles||[]);
+      const col=bots.filter(b=>b.zone_col).length;
+      const med=bots.filter(b=>b.zone_med).length;
+      const gal=bots.filter(b=>b.zone_gal).length;
+      const pid=bots.filter(b=>b.zone_pied).length;
+      [[byDay,day],[byWeek,week],[byMonth,month]].forEach(([obj,key])=>{
+        if(!obj[key]) obj[key]={total:0,ok:0,nok:0,col:0,med:0,gal:0,pid:0};
+        obj[key].total+=s.total; obj[key].ok+=s.nb_ok; obj[key].nok+=s.nb_nok;
+        obj[key].col+=col; obj[key].med+=med; obj[key].gal+=gal; obj[key].pid+=pid;
       });
     });
-    return { byDay, byWeek, byMonth };
+    return {byDay,byWeek,byMonth};
   }
-  function buildStatsSheet(title, statsObj, labelFn) {
-    const rows = [[title,"","","",""],["Période","Total testé","Succès","Échecs","Taux %"]];
-    Object.entries(statsObj).sort(([a],[b])=>b.localeCompare(a)).forEach(([key,s]) => {
-      rows.push([labelFn(key),s.total,s.ok,s.nok,pct(s.ok,s.ok+s.nok)+"%"]);
+
+  function buildStatsSheet(title,statsObj,labelFn){
+    const entries = Object.entries(statsObj).sort(([a],[b])=>b.localeCompare(a));
+
+    const rows = [];
+
+    // ── TITRE PRINCIPAL ──
+    rows.push([`📊 ${title}`,"","","","","","","","","","","",""]);
+    rows.push(["","","","","","","","","","","","",""]);
+
+    // ── SECTION 1 : RÉSULTATS GLOBAUX ──
+    rows.push(["▶ RÉSULTATS GLOBAUX","","","","","","","","","","","",""]);
+    rows.push([
+      "Période",
+      "Total testé",
+      "✓ Succès",
+      "✗ Échecs",
+      "Taux conformité %",
+      "","","","","","","",""
+    ]);
+    entries.forEach(([key,s])=>{
+      rows.push([
+        labelFn(key),
+        s.total,
+        s.ok,
+        s.nok,
+        pct(s.ok,s.ok+s.nok)+"%",
+        "","","","","","","",""
+      ]);
     });
+
+    rows.push(["","","","","","","","","","","","",""]);
+
+    // ── SECTION 2 : DÉFAUTS PAR ZONE ──
+    rows.push(["▶ DÉFAUTS PAR ZONE (nombre de bouteilles avec défaut)","","","","","","","","","","","",""]);
+    rows.push([
+      "Période",
+      "✗ Total NOK",
+      "Col (nb)",
+      "Col (% NOK)",
+      "Med (nb)",
+      "Med (% NOK)",
+      "Gal (nb)",
+      "Gal (% NOK)",
+      "Pied (nb)",
+      "Pied (% NOK)",
+      "","",""
+    ]);
+    entries.forEach(([key,s])=>{
+      rows.push([
+        labelFn(key),
+        s.nok,
+        s.col||0,
+        pct(s.col||0,s.nok)+"%",
+        s.med||0,
+        pct(s.med||0,s.nok)+"%",
+        s.gal||0,
+        pct(s.gal||0,s.nok)+"%",
+        s.pid||0,
+        pct(s.pid||0,s.nok)+"%",
+        "","",""
+      ]);
+    });
+
+    rows.push(["","","","","","","","","","","","",""]);
+
+    // ── SECTION 3 : RÉCAPITULATIF COMPLET ──
+    rows.push(["▶ RÉCAPITULATIF COMPLET","","","","","","","","","","","",""]);
+    rows.push([
+      "Période",
+      "Total","✓ OK","✗ NOK","Taux %",
+      "Col","% Col/NOK",
+      "Med","% Med/NOK",
+      "Gal","% Gal/NOK",
+      "Pied","% Pied/NOK"
+    ]);
+    entries.forEach(([key,s])=>{
+      rows.push([
+        labelFn(key),
+        s.total, s.ok, s.nok, pct(s.ok,s.ok+s.nok)+"%",
+        s.col||0, pct(s.col||0,s.nok)+"%",
+        s.med||0, pct(s.med||0,s.nok)+"%",
+        s.gal||0, pct(s.gal||0,s.nok)+"%",
+        s.pid||0, pct(s.pid||0,s.nok)+"%",
+      ]);
+    });
+
     const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"] = [{wch:30},{wch:14},{wch:10},{wch:10},{wch:14}]; return ws;
+    ws["!cols"]=[
+      {wch:32},{wch:12},{wch:10},{wch:10},{wch:16},
+      {wch:8},{wch:12},{wch:8},{wch:12},
+      {wch:8},{wch:12},{wch:8},{wch:12}
+    ];
+
+    // Style title rows (bold simulation via merges not possible in basic SheetJS,
+    // but we use empty separators and clear section titles for readability)
+    return ws;
   }
-  function buildDetailSheet(sessions) {
-    const rows = [["Machine","Type","Opérateurs","Date","Heure","Lot","N° Série",
-      "Succès","Col","Med","Gal","Pied","Corrigée","Note"]];
-    sessions.forEach(s => s.lots.forEach(l => l.bouteilles.forEach(b => {
-      rows.push([s.machine,s.bottle_type,s.operateur||"—",s.date,fmtTime(s.created_at),
+
+  /* ── Build comprehensive day Excel ── */
+  const buildDayExcel = (day) => {
+    const dayData = histByDay[day] || { tests:{}, corrections:{} };
+    const allTestSessions = Object.values(dayData.tests).flat();
+    const allCorrSessions = Object.values(dayData.corrections).flat();
+
+    // Compute all bouteilles for the day
+    const allBouteilles = allTestSessions.flatMap(s => s.lots.flatMap(l => l.bouteilles));
+    const totalDay   = allBouteilles.length;
+    const okDay      = allBouteilles.filter(b => b.succes).length;
+    const nokDay     = allBouteilles.filter(b => !b.succes && (b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
+
+    // Zone counts
+    const zoneTotals = ZONES.map(z => ({
+      ...z,
+      count:      allBouteilles.filter(b => b[z.col]).length,
+      countOk:    allBouteilles.filter(b => b.succes).length,
+    }));
+
+    // ── Sheet 1: Résumé du jour ──
+    const resume = [
+      [`RÉSUMÉ JOURNÉE — ${fmtDate(day)}`],[],
+      ["RÉSULTATS DES TESTS","","","","","",""],
+      ["Machine","Type","Opérateurs","Sessions","Total bouteilles","✓ OK","✗ NOK","Taux %",
+       "Col","% Col","Med","% Med","Gal","% Gal","Pied","% Pied"],
+    ];
+
+    Object.entries(dayData.tests).forEach(([mac, sessions]) => {
+      const bots = sessions.flatMap(s => s.lots.flatMap(l => l.bouteilles));
+      const tot  = bots.length;
+      const ok   = bots.filter(b => b.succes).length;
+      const nok  = bots.filter(b => !b.succes && (b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
+      const ops  = sessions.map(s=>s.operateur).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(", ")||"—";
+      const type = sessions[0]?.bottle_type||"—";
+      const col  = bots.filter(b=>b.zone_col).length;
+      const med  = bots.filter(b=>b.zone_med).length;
+      const gal  = bots.filter(b=>b.zone_gal).length;
+      const pid  = bots.filter(b=>b.zone_pied).length;
+      resume.push([mac, type, ops, sessions.length, tot, ok, nok, pct(ok,ok+nok)+"%",
+        col, pct(col,nok)+"%", med, pct(med,nok)+"%", gal, pct(gal,nok)+"%", pid, pct(pid,nok)+"%"]);
+    });
+
+    resume.push([]);
+    resume.push(["TOTAL TESTS","","",
+      allTestSessions.length, totalDay, okDay, nokDay, pct(okDay,okDay+nokDay)+"%",
+      ...ZONES.flatMap(z=>{
+        const c=allBouteilles.filter(b=>b[z.col]).length;
+        return [c, pct(c,nokDay)+"%"];
+      })
+    ]);
+
+    // Zone breakdown section
+    resume.push([],[`ANALYSE PAR ZONE DE DÉFAUT — ${fmtDate(day)}`],[]);
+    resume.push(["Zone","Nom complet","Nb défauts","% des NOK","% du total testé"]);
+    ZONES.forEach(z=>{
+      const c=allBouteilles.filter(b=>b[z.col]).length;
+      resume.push([z.id, z.full, c, pct(c,nokDay)+"%", pct(c,totalDay)+"%"]);
+    });
+    resume.push(["TOTAL NOK","",nokDay,"100%",pct(nokDay,totalDay)+"%"]);
+
+    // Corrections section
+    if (allCorrSessions.length > 0) {
+      const allCorrs = allCorrSessions.flatMap(s => s.corrections || []);
+      resume.push([],["CORRECTIONS DU JOUR"],[]);
+      resume.push(["Machine","Bouteilles traitées","Corrigées","En attente","Rejetées","Taux correction %",
+        "Col corrigé","Med corrigé","Gal corrigé","Pied corrigé"]);
+      Object.entries(dayData.corrections).forEach(([mac, sessions]) => {
+        const corrs = sessions.flatMap(s => s.corrections||[]);
+        const done  = corrs.filter(c=>c.statut==="corrigee").length;
+        const pend  = corrs.filter(c=>c.statut==="en_attente").length;
+        const rej   = corrs.filter(c=>c.statut==="rejetee").length;
+        const fixZones = id => corrs.filter(c=>(c.zones_corrigees||[]).includes(id)).length;
+        resume.push([mac, corrs.length, done, pend, rej, pct(done,corrs.length)+"%",
+          fixZones("COL"), fixZones("MED"), fixZones("GAL"), fixZones("PIED")]);
+      });
+      resume.push(["TOTAL CORRECTIONS","",
+        allCorrs.filter(c=>c.statut==="corrigee").length,
+        allCorrs.filter(c=>c.statut==="en_attente").length,
+        allCorrs.filter(c=>c.statut==="rejetee").length,
+        pct(allCorrs.filter(c=>c.statut==="corrigee").length, allCorrs.length)+"%",
+        "","","",""
+      ]);
+    }
+
+    const ws1 = XLSX.utils.aoa_to_sheet(resume);
+    ws1["!cols"] = [{wch:14},{wch:8},{wch:18},{wch:9},{wch:14},{wch:7},{wch:7},{wch:8},
+      {wch:6},{wch:8},{wch:6},{wch:8},{wch:6},{wch:8},{wch:6},{wch:8}];
+
+    // ── Sheet 2: Détail bouteilles ──
+    const detail = [["Machine","Type","Opérateurs","Date","Heure","Lot","N° Série",
+      "Succès","Col","Med","Gal","Pied","Corrigée","Note correction"]];
+    allTestSessions.forEach(s => s.lots.forEach(l => l.bouteilles.forEach(b=>{
+      detail.push([s.machine,s.bottle_type,s.operateur||"—",s.date,fmtTime(s.created_at),
         `Lot ${l.lot_num}`,b.num_serie,b.succes?"✓":"",
         b.zone_col?"X":"",b.zone_med?"X":"",b.zone_gal?"X":"",b.zone_pied?"X":"",
         b.corrigee?"✓":"",b.note_correction||""]);
     })));
-    const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"] = [{wch:14},{wch:8},{wch:18},{wch:10},{wch:6},{wch:7},{wch:14},{wch:7},
-      {wch:5},{wch:5},{wch:5},{wch:5},{wch:9},{wch:20}]; return ws;
-  }
-  const exportFullDay = (day) => {
-    if (!XLSX) return;
-    const dayMachines = histByDayMachine[day] || {};
-    const { byDay, byWeek, byMonth } = computeStats(histData || []);
-    const wb = XLSX.utils.book_new();
-    Object.entries(dayMachines).forEach(([mac,sessions]) => {
-      XLSX.utils.book_append_sheet(wb, buildDetailSheet(sessions), mac.replace(/\s+/g,"_").slice(0,31));
+    const ws2=XLSX.utils.aoa_to_sheet(detail);
+    ws2["!cols"]=[{wch:14},{wch:8},{wch:18},{wch:10},{wch:7},{wch:7},{wch:14},{wch:7},{wch:5},{wch:5},{wch:5},{wch:5},{wch:9},{wch:20}];
+
+    // ── Sheet 3: Détail corrections ──
+    const corrDetail = [["Machine","Type","N° Série","Date test","Lot","Opérateur test",
+      "Zone Col","Zone Med","Zone Gal","Zone Pied",
+      "Zones corrigées","Corrigée par","Note","Statut","Heure correction"]];
+    allCorrSessions.forEach(s=>{
+      (s.corrections||[]).forEach(c=>{
+        corrDetail.push([c.machine,c.bottle_type,c.num_serie,c.date_test,`Lot ${c.lot_id||"?"}`,c.operateur||"—",
+          c.zone_col?"X":"",c.zone_med?"X":"",c.zone_gal?"X":"",c.zone_pied?"X":"",
+          (c.zones_corrigees||[]).join(",")||"—",c.corrigee_par||"—",c.note||"—",
+          c.statut,fmtTime(c.created_at)]);
+      });
     });
-    XLSX.utils.book_append_sheet(wb, buildStatsSheet("PAR JOUR",    byDay,   fmtDate),              "Stats Jours");
-    XLSX.utils.book_append_sheet(wb, buildStatsSheet("PAR SEMAINE", byWeek,  k=>`Semaine ${k}`),    "Stats Semaines");
-    XLSX.utils.book_append_sheet(wb, buildStatsSheet("PAR MOIS",    byMonth, fmtMonth),             "Stats Mois");
-    const allS = Object.values(dayMachines).flat();
-    const sumRows = [[`RÉSUMÉ DU ${fmtDate(day)}`],[],["Machine","Sessions","Total","OK","NOK","Taux %","Corrigées"]];
-    let gt=0,gok=0,gnok=0,gfix=0;
-    Object.entries(dayMachines).forEach(([mac,sessions]) => {
-      const tot=sessions.reduce((a,s)=>a+s.total,0),ok=sessions.reduce((a,s)=>a+s.nb_ok,0),
-            nok=sessions.reduce((a,s)=>a+s.nb_nok,0),fix=sessions.reduce((a,s)=>a+(s.nb_fix||0),0);
-      sumRows.push([mac,sessions.length,tot,ok,nok,pct(ok,ok+nok)+"%",fix]);
-      gt+=tot;gok+=ok;gnok+=nok;gfix+=fix;
-    });
-    sumRows.push([],["TOTAL",",",gt,gok,gnok,pct(gok,gok+gnok)+"%",gfix]);
-    const sumWs=XLSX.utils.aoa_to_sheet(sumRows);
-    sumWs["!cols"]=[{wch:14},{wch:10},{wch:8},{wch:6},{wch:6},{wch:8},{wch:10}];
-    XLSX.utils.book_append_sheet(wb,sumWs,"Résumé Jour");
-    XLSX.writeFile(wb,`historique_${day}.xlsx`);
-    toast(`✅ Export ${day} téléchargé !`);
-  };
-  const exportMachineDay = (day, macName, sessions) => {
-    if (!XLSX) return;
-    const { byDay, byWeek, byMonth } = computeStats(histData || []);
+    const ws3=XLSX.utils.aoa_to_sheet(corrDetail);
+    ws3["!cols"]=[{wch:14},{wch:8},{wch:14},{wch:10},{wch:7},{wch:16},{wch:5},{wch:5},{wch:5},{wch:5},{wch:14},{wch:14},{wch:20},{wch:12},{wch:10}];
+
+    // ── Sheets 4-6: Stats périodiques ──
+    const {byDay,byWeek,byMonth} = computeStats(histData||[]);
+
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, buildDetailSheet(sessions), "Données");
+    XLSX.utils.book_append_sheet(wb, ws1, "Résumé Jour");
+    XLSX.utils.book_append_sheet(wb, ws2, "Détail Tests");
+    if (corrDetail.length > 1) XLSX.utils.book_append_sheet(wb, ws3, "Détail Corrections");
     XLSX.utils.book_append_sheet(wb, buildStatsSheet("PAR JOUR",    byDay,   fmtDate),           "Stats Jours");
     XLSX.utils.book_append_sheet(wb, buildStatsSheet("PAR SEMAINE", byWeek,  k=>`Semaine ${k}`), "Stats Semaines");
     XLSX.utils.book_append_sheet(wb, buildStatsSheet("PAR MOIS",    byMonth, fmtMonth),          "Stats Mois");
-    XLSX.writeFile(wb, `hydro_${macName.replace(/\s+/g,"_")}_${day}.xlsx`);
+    XLSX.writeFile(wb, `qualite_${day}.xlsx`);
+    toast(`✅ Rapport complet ${day} téléchargé !`);
+  };
+
+  const buildMachineExcel = (day, macName, sessions) => {
+    const bots = sessions.flatMap(s=>s.lots.flatMap(l=>l.bouteilles));
+    const tot  = bots.length, ok=bots.filter(b=>b.succes).length, nok=bots.filter(b=>!b.succes&&(b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
+    const rows=[
+      [`TEST HYDROSTATIQUE — ${macName} — ${fmtDate(day)}`],[],
+      ["N° Série","Lot","Succès","Col","Med","Gal","Pied","Corrigée"],
+    ];
+    sessions.forEach(s=>s.lots.forEach(l=>l.bouteilles.forEach(b=>{
+      rows.push([b.num_serie,`Lot ${l.lot_num}`,b.succes?"✓":"",
+        b.zone_col?"X":"",b.zone_med?"X":"",b.zone_gal?"X":"",b.zone_pied?"X":"",b.corrigee?"✓":""]);
+    })));
+    rows.push([],[`RÉSUMÉ ${macName}`],[]);
+    rows.push(["Total",tot],["✓ OK",ok],["✗ NOK",nok],["Taux",pct(ok,ok+nok)+"%"]);
+    rows.push([]);
+    rows.push(["ANALYSE PAR ZONE"],[],["Zone","Nom","Nb défauts","% des NOK","% du total"]);
+    ZONES.forEach(z=>{const c=bots.filter(b=>b[z.col]).length; rows.push([z.id,z.full,c,pct(c,nok)+"%",pct(c,tot)+"%"]);});
+
+    const {byDay,byWeek,byMonth} = computeStats(histData||[]);
+    const wb=XLSX.utils.book_new();
+    const ws=XLSX.utils.aoa_to_sheet(rows);
+    ws["!cols"]=[{wch:14},{wch:7},{wch:7},{wch:6},{wch:6},{wch:6},{wch:6},{wch:9}];
+    XLSX.utils.book_append_sheet(wb,ws,"Données");
+    XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR JOUR",    byDay,   fmtDate),           "Stats Jours");
+    XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR SEMAINE", byWeek,  k=>`Semaine ${k}`), "Stats Semaines");
+    XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR MOIS",    byMonth, fmtMonth),          "Stats Mois");
+    XLSX.writeFile(wb,`hydro_${macName.replace(/\s+/g,"_")}_${day}.xlsx`);
     toast(`✅ ${macName} — ${day} exporté !`);
+  };
+
+  /* ── Delete functions ── */
+  const [deleting, setDeleting] = useState(new Set());
+
+  const deleteMachineDay = async (day, macName, sessions) => {
+    if (!sb) return;
+    const label = `${macName} — ${day}`;
+    if (!window.confirm(`⚠️ Supprimer toutes les données de ${label} ?
+
+Cette action est irréversible.`)) return;
+    const key = `${day}_${macName}`;
+    setDeleting(p => new Set([...p, key]));
+    try {
+      // Get all bouteille IDs for these sessions
+      const allBotIds = sessions.flatMap(s => s.lots.flatMap(l => l.bouteilles.map(b => b.id)));
+      const allLotIds = sessions.flatMap(s => s.lots.map(l => l.id));
+      const sessionIds = sessions.map(s => s.id);
+
+      if (allBotIds.length > 0) {
+        const { error: e1 } = await sb.from("corrections").delete().in("bouteille_id", allBotIds);
+        if (e1) throw e1;
+        const { error: e2 } = await sb.from("bouteilles").delete().in("id", allBotIds);
+        if (e2) throw e2;
+      }
+      if (allLotIds.length > 0) {
+        const { error: e3 } = await sb.from("lots").delete().in("id", allLotIds);
+        if (e3) throw e3;
+      }
+      if (sessionIds.length > 0) {
+        const { error: e4 } = await sb.from("sessions").delete().in("id", sessionIds);
+        if (e4) throw e4;
+      }
+      setHistData(null); // force reload
+      toast(`✅ ${label} supprimé !`);
+    } catch (err) {
+      toast(`⚠️ Erreur suppression : ${err.message}`, true);
+    } finally {
+      setDeleting(p => { const n = new Set(p); n.delete(key); return n; });
+    }
+  };
+
+  const deleteSession = async (s) => {
+    if (!sb) return;
+    const label = `Session ${fmtTime(s.created_at)} — ${s.machine}`;
+    if (!window.confirm(`⚠️ Supprimer ${label} ?
+
+Cette action est irréversible.`)) return;
+    setDeleting(p => new Set([...p, s.id]));
+    try {
+      const allBotIds = s.lots.flatMap(l => l.bouteilles.map(b => b.id));
+      const allLotIds = s.lots.map(l => l.id);
+      if (allBotIds.length > 0) {
+        await sb.from("corrections").delete().in("bouteille_id", allBotIds);
+        await sb.from("bouteilles").delete().in("id", allBotIds);
+      }
+      if (allLotIds.length > 0) await sb.from("lots").delete().in("id", allLotIds);
+      await sb.from("sessions").delete().eq("id", s.id);
+      setHistData(null);
+      toast(`✅ Session supprimée !`);
+    } catch (err) {
+      toast(`⚠️ ${err.message}`, true);
+    } finally {
+      setDeleting(p => { const n = new Set(p); n.delete(s.id); return n; });
+    }
+  };
+
+  const deleteLot = async (lot, sessionId) => {
+    if (!sb) return;
+    const label = `Lot ${lot.lot_num}`;
+    if (!window.confirm(`⚠️ Supprimer le ${label} ?
+(${lot.bouteilles.length} bouteilles)
+
+Cette action est irréversible.`)) return;
+    setDeleting(p => new Set([...p, lot.id]));
+    try {
+      const botIds = lot.bouteilles.map(b => b.id);
+      if (botIds.length > 0) {
+        await sb.from("corrections").delete().in("bouteille_id", botIds);
+        await sb.from("bouteilles").delete().in("id", botIds);
+      }
+      await sb.from("lots").delete().eq("id", lot.id);
+      setHistData(null);
+      toast(`✅ ${label} supprimé !`);
+    } catch (err) {
+      toast(`⚠️ ${err.message}`, true);
+    } finally {
+      setDeleting(p => { const n = new Set(p); n.delete(lot.id); return n; });
+    }
   };
 
   const setP = (k, v) => setParams(p => ({ ...p, [k]: v }));
@@ -1041,8 +1258,7 @@ export default function App() {
         <div className="card-lbl">Sélectionnez la machine</div>
         <div className="machine-grid">
           {MACHINES.map(m=>(
-            <button key={m.id} className={`m-btn${machine?.id===m.id?" sel":""}`}
-              onClick={()=>setMachine(m)}>
+            <button key={m.id} className={`m-btn${machine?.id===m.id?" sel":""}`} onClick={()=>setMachine(m)}>
               {machine?.id===m.id && <span className="m-check">✓</span>}
               <div className="m-name">{m.label}</div>
               <div className="m-tag">6 KG · 12.5 KG</div>
@@ -1051,8 +1267,7 @@ export default function App() {
         </div>
         <div className="home-actions">
           <div className="home-action-row">
-            <button className="action-btn ab-new"
-              style={{opacity:machine?1:0.35}}
+            <button className="action-btn ab-new" style={{opacity:machine?1:0.35}}
               onClick={()=>{if(machine)setScreen("bottletype");}}>
               <div className="ab-icon">🧪</div>
               <div className="ab-label" style={{color:"var(--amber)"}}>NOUVEAU TEST</div>
@@ -1070,7 +1285,7 @@ export default function App() {
               <div className="ab-icon">📋</div>
               <div>
                 <div className="ab-label" style={{color:"var(--blue)"}}>HISTORIQUE</div>
-                <div className="ab-sub">Voir toutes les sessions enregistrées</div>
+                <div className="ab-sub">Tous les tests et corrections</div>
               </div>
             </div>
           </button>
@@ -1089,12 +1304,9 @@ export default function App() {
       <div className="card">
         <div className="btype-grid">
           {BOTTLE_TYPES.map(bt=>(
-            <button key={bt.id} className={`bt-btn${bottleType===bt.id?" sel":""}`}
-              onClick={()=>setBottleType(bt.id)}>
+            <button key={bt.id} className={`bt-btn${bottleType===bt.id?" sel":""}`} onClick={()=>setBottleType(bt.id)}>
               {bottleType===bt.id && <span className="bt-check">✓</span>}
-              <div className="bt-kg">{bt.label}</div>
-              <div className="bt-unit">{bt.unit}</div>
-              <div className="bt-desc">{bt.sub}</div>
+              <div className="bt-kg">{bt.label}</div><div className="bt-unit">{bt.unit}</div><div className="bt-desc">{bt.sub}</div>
             </button>
           ))}
         </div>
@@ -1124,26 +1336,22 @@ export default function App() {
             <div className="op-row">
               <div className="op-field">
                 <label className="op-lbl">Opérateur 1</label>
-                <input className="op-inp" placeholder="Nom de l'opérateur 1"
-                  value={params.op1} onChange={e=>setP("op1",e.target.value)}/>
+                <input className="op-inp" placeholder="Nom de l'opérateur 1" value={params.op1} onChange={e=>setP("op1",e.target.value)}/>
               </div>
               <div className="op-field">
                 <label className="op-lbl">Opérateur 2</label>
-                <input className="op-inp" placeholder="Nom de l'opérateur 2"
-                  value={params.op2} onChange={e=>setP("op2",e.target.value)}/>
+                <input className="op-inp" placeholder="Nom de l'opérateur 2" value={params.op2} onChange={e=>setP("op2",e.target.value)}/>
               </div>
             </div>
           </div>
           <div className="pg pg2">
             <div className="pf">
               <label className="pf-lbl">📅 Date</label>
-              <input type="date" className="pf-inp"
-                value={params.date} onChange={e=>setP("date",e.target.value)}/>
+              <input type="date" className="pf-inp" value={params.date} onChange={e=>setP("date",e.target.value)}/>
             </div>
             <div className="pf">
               <label className="pf-lbl">⚙ Pression (bars)</label>
-              <input className="pf-inp" value={params.pression}
-                onChange={e=>setP("pression",e.target.value)}/>
+              <input className="pf-inp" value={params.pression} onChange={e=>setP("pression",e.target.value)}/>
             </div>
           </div>
           <div style={{display:"flex",justifyContent:"space-between",marginTop:4}}>
@@ -1164,22 +1372,20 @@ export default function App() {
         <div className="form-card">
           <div className="form-title">
             Lot {lots.length+1}
-            <span style={{fontSize:11,color:"var(--amber)",marginLeft:10,
-              fontFamily:"var(--mono)",letterSpacing:2}}>[{bottleType}]</span>
+            <span style={{fontSize:11,color:"var(--amber)",marginLeft:10,fontFamily:"var(--mono)",letterSpacing:2}}>[{bottleType}]</span>
           </div>
           <div className="form-sub">N° DE SÉRIE — CHIFFRES UNIQUEMENT, TOUS DIFFÉRENTS</div>
           <div className="serial-grid">
             {serials.map((val,i)=>(
               <div className="sc" key={i}>
                 <span className="sc-lbl">BTL {i+1}</span>
-                <input ref={el=>(inputRefs.current[i]=el)}
-                  type="text" inputMode="numeric" pattern="[0-9]*"
+                <input ref={el=>(inputRefs.current[i]=el)} type="text" inputMode="numeric" pattern="[0-9]*"
                   className={`sc-inp${val?" fi":""}${dupErrors[i]?" dp":""}`}
                   placeholder="00000" value={val} maxLength={10} autoFocus={i===0}
                   onChange={e=>handleSerial(i,e.target.value)}
                   onKeyDown={e=>{if(e.key==="Enter"||e.key==="Tab"){e.preventDefault();inputRefs.current[i+1]?.focus();}}}
                 />
-                {dupErrors[i] && <div className="sc-err">Doublon!</div>}
+                {dupErrors[i]&&<div className="sc-err">Doublon!</div>}
               </div>
             ))}
           </div>
@@ -1188,19 +1394,14 @@ export default function App() {
           </div>
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}}>
             <div style={{display:"flex",gap:6}}>
-              {lots.length>0 && <button className="btn btn-gh" onClick={()=>setScreen("recap")}>← Récap</button>}
+              {lots.length>0&&<button className="btn btn-gh" onClick={()=>setScreen("recap")}>← Récap</button>}
               <button className="btn btn-gh" onClick={()=>setScreen("params")}>← Params</button>
             </div>
             <div style={{display:"flex",gap:8,alignItems:"center"}}>
-              <span style={{fontFamily:"var(--mono)",fontSize:9,color:"var(--muted)"}}>
-                {serials.filter(s=>s.trim()).length}/{BATCH_SIZE}
-              </span>
-              {hasDups && <span style={{fontFamily:"var(--mono)",fontSize:8,color:"#ef4444"}}>⚠ Doublons</span>}
-              <button className="btn btn-a"
-                style={{opacity:serials.some(s=>s.trim())&&!hasDups?1:0.35}}
-                onClick={()=>{if(serials.some(s=>s.trim())&&!hasDups)setScreen("control");}}>
-                CONTRÔLER →
-              </button>
+              <span style={{fontFamily:"var(--mono)",fontSize:9,color:"var(--muted)"}}>{serials.filter(s=>s.trim()).length}/{BATCH_SIZE}</span>
+              {hasDups&&<span style={{fontFamily:"var(--mono)",fontSize:8,color:"#ef4444"}}>⚠ Doublons</span>}
+              <button className="btn btn-a" style={{opacity:serials.some(s=>s.trim())&&!hasDups?1:0.35}}
+                onClick={()=>{if(serials.some(s=>s.trim())&&!hasDups)setScreen("control");}}>CONTRÔLER →</button>
             </div>
           </div>
         </div>
@@ -1238,15 +1439,13 @@ export default function App() {
       <div className="ctrl-body">
         {serials.map((num,i)=>{
           if(!num.trim()) return null;
-          const set=checks[i]||new Set();
-          const isOk=set.has("S"); const isNok=set.size>0&&!isOk;
+          const set=checks[i]||new Set(), isOk=set.has("S"), isNok=set.size>0&&!isOk;
           return (
             <div className={`b-row${isOk?" bok":isNok?" bnok":""}`} key={i}>
               <div className="b-i">{i+1}</div>
               <div className="b-n">{num.trim()}</div>
               <div className="b-ctrl">
-                <button className={`z-btn${set.has("S")?" aS":""}`}
-                  onClick={()=>toggleZone(i,"S")}>✓ OK</button>
+                <button className={`z-btn${set.has("S")?" aS":""}`} onClick={()=>toggleZone(i,"S")}>✓ OK</button>
                 <span className="b-sep">|</span>
                 {ZONES.map(z=>(
                   <button key={z.id} className={`z-btn${set.has(z.id)?` a${z.id}`:""}`}
@@ -1263,13 +1462,13 @@ export default function App() {
       <div className="val-bar">
         <div className="val-info">
           Lot <b>{lots.length+1}</b> · <b>{curCocked}</b>/{filled.length}
-          {!allChecked&&curCocked>0&&
-            <span className="val-warn">Cochez toutes les bouteilles pour valider</span>}
+          {!allChecked&&curCocked>0&&<span className="val-warn">Cochez toutes les bouteilles pour valider</span>}
         </div>
         <div style={{marginLeft:"auto",display:"flex",gap:6}}>
           <button className="btn btn-gh" onClick={()=>setScreen("serials")}>← N°</button>
-          <button className="btn btn-a" style={{opacity:allChecked&&!saving?1:0.35}}
-            onClick={validateLot}>{saving?"…":"VALIDER ✓"}</button>
+          <button className="btn btn-a" style={{opacity:allChecked&&!saving?1:0.35}} onClick={validateLot}>
+            {saving?"…":"VALIDER ✓"}
+          </button>
         </div>
       </div>
       <Saving/><Toasts/>
@@ -1392,76 +1591,46 @@ export default function App() {
     </div>
   );
 
-  /* ══════════════════════════════════════════════════════════════
-     SCREEN: CORRIGER  ← FULL REWRITE
-  ══════════════════════════════════════════════════════════════ */
+  /* ══════════ SCREEN: CORRIGER ══════════ */
   if (screen === "corriger") return (
     <div className="page">
-      {/* Top bar */}
       <div className="top-bar">
         <div className="top-machine" style={{color:"#ef4444"}}>🔧 CORRIGER</div>
         <div className="chips">
           <div className="chip er">✗ <span>{fixStats.pending} en attente</span></div>
           <div className="chip ok">✓ <span>{fixStats.done} corrigées</span></div>
-          {fixStats.rejected > 0 && <div className="chip">↩ <span>{fixStats.rejected} rejetées</span></div>}
+          {fixStats.rejected>0&&<div className="chip">↩ <span>{fixStats.rejected} rejetées</span></div>}
         </div>
         <div className="top-right">
           <button className="btn btn-gh btn-sm" onClick={loadFailedBottles}>↺</button>
-          {failedBots.length > 0 && (
-            <button className="btn btn-g btn-sm" onClick={exportCorrections}>📊 Export</button>
-          )}
+          {failedBots.length>0&&<button className="btn btn-g btn-sm" onClick={exportCorrections}>📊</button>}
           <button className="btn btn-a btn-sm" onClick={()=>setScreen("machine")}>← Accueil</button>
         </div>
       </div>
-
-      {/* Stats strip */}
-      {failedBots.length > 0 && (
+      {failedBots.length>0&&(
         <>
           <div className="fix-stats">
-            <div className="fss">
-              <div className="fss-v" style={{color:"var(--blue)"}}>{fixStats.total}</div>
-              <div className="fss-l">Total NOK</div>
-            </div>
-            <div className="fss">
-              <div className="fss-v" style={{color:"#ef4444"}}>{fixStats.pending}</div>
-              <div className="fss-l">En attente</div>
-            </div>
-            <div className="fss">
-              <div className="fss-v" style={{color:"#10b981"}}>{fixStats.done}</div>
-              <div className="fss-l">Corrigées</div>
-            </div>
-            <div className="fss">
-              <div className="fss-v" style={{color:"var(--muted)"}}>{fixStats.rejected}</div>
-              <div className="fss-l">Rejetées</div>
-            </div>
-            <div className="fss">
-              <div className="fss-v" style={{color:"var(--amber)"}}>
-                {pct(fixStats.done, fixStats.total)}%
-              </div>
-              <div className="fss-l">Taux correction</div>
-            </div>
+            <div className="fss"><div className="fss-v" style={{color:"var(--blue)"}}>{fixStats.total}</div><div className="fss-l">Total NOK</div></div>
+            <div className="fss"><div className="fss-v" style={{color:"#ef4444"}}>{fixStats.pending}</div><div className="fss-l">En attente</div></div>
+            <div className="fss"><div className="fss-v" style={{color:"#10b981"}}>{fixStats.done}</div><div className="fss-l">Corrigées</div></div>
+            <div className="fss"><div className="fss-v" style={{color:"var(--muted)"}}>{fixStats.rejected}</div><div className="fss-l">Rejetées</div></div>
+            <div className="fss"><div className="fss-v" style={{color:"var(--amber)"}}>{pct(fixStats.done,fixStats.total)}%</div><div className="fss-l">Taux correction</div></div>
           </div>
-
-          {/* Zone breakdown */}
           <div className="fix-zone-summary">
-            {fixZoneCounts.map(z => (
+            {fixZoneCounts.map(z=>(
               <div className="fzs" key={z.id}>
                 <div className="fzs-id" style={{color:z.color}}>{z.id}</div>
                 <div className="fzs-n" style={{color:z.count>0?z.color:"var(--muted)"}}>{z.count}</div>
                 <div className="fzs-sub">{z.full}</div>
-                <div style={{fontFamily:"var(--mono)",fontSize:7,color:"var(--muted)",marginTop:2}}>
-                  {pct(z.count, fixStats.total)}% du total
-                </div>
+                <div style={{fontFamily:"var(--mono)",fontSize:7,color:"var(--muted)",marginTop:2}}>{pct(z.count,fixStats.total)}%</div>
               </div>
             ))}
           </div>
         </>
       )}
-
-      {/* Body */}
       {fixLoading ? (
         <div className="fix-loading"><div className="hspinner"/> CHARGEMENT…</div>
-      ) : failedBots.length === 0 ? (
+      ) : failedBots.length===0 ? (
         <div className="fix-empty">
           <div className="fix-empty-icon">✅</div>
           <div className="fix-empty-txt">Aucune bouteille en échec !</div>
@@ -1469,196 +1638,136 @@ export default function App() {
         </div>
       ) : (
         <div className="fix-body">
-          {/* ── EN ATTENTE ── */}
-          {fixStats.pending > 0 && (
-            <div className="fix-section-title" style={{color:"#ef4444"}}>
-              — À CORRIGER ({fixStats.pending}) —
-            </div>
-          )}
-          {failedBots
-            .filter(b => (fixState[b.id]?.statut || "en_attente") === "en_attente")
-            .map(b => {
-              const sess  = b.lots?.sessions || {};
-              const defectZones = ZONES.filter(z => b[z.col]);
-              const st    = fixState[b.id] || { zonesFixed: new Set(), note: "", operateur: "", statut: "en_attente" };
-              const isSav = fixSaving.has(b.id);
-              return (
-                <div className="fx-card" key={b.id}>
-                  {/* Header */}
-                  <div className="fx-hdr">
-                    <div className="fx-serial">{b.num_serie}</div>
-                    <div className="fx-badge machine">{sess.machine||"—"}</div>
-                    <div className="fx-badge type">{sess.bottle_type||"—"}</div>
-                    <div className="fx-badge date">{sess.date||"—"}</div>
-                    <div className="fx-badge lot">Lot {b.lots?.lot_num||"?"}</div>
-                    <div className="fx-status pending">EN ATTENTE</div>
-                  </div>
-
-                  {/* Original defects (read-only) */}
-                  <div className="fx-orig">
-                    <div className="fx-orig-lbl">Zones défaillantes au test :</div>
-                    <div className="fx-zone-tags">
-                      {defectZones.map(z => (
-                        <div key={z.id} className="fzt"
-                          style={{color:z.color,borderColor:z.color,background:z.color+"18"}}>
-                          ✗ {z.label} — {z.full}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Correction zones — checkable */}
-                  <div className="fx-zones">
-                    <div className="fx-zones-lbl">
-                      🔧 Zones corrigées
-                      <span style={{color:"var(--muted)",fontSize:7,fontWeight:400}}>
-                        (sélectionnez les zones que vous avez corrigées)
-                      </span>
-                    </div>
-                    <div className="fx-zone-btns">
-                      {ZONES.map(z => (
-                        <button key={z.id}
-                          className={`fzb${st.zonesFixed?.has(z.id)?` sel-${z.id}`:""}`}
-                          onClick={() => toggleFixZone(b.id, z.id)}>
-                          {st.zonesFixed?.has(z.id) ? "✓" : "○"} {z.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Note + operator + actions */}
-                  <div className="fx-bottom">
-                    <input className="fx-op" placeholder="Opérateur correction…"
-                      value={st.operateur||""}
-                      onChange={e => setFixField(b.id, "operateur", e.target.value)}/>
-                    <input className="fx-note" placeholder="Note de correction…"
-                      value={st.note||""}
-                      onChange={e => setFixField(b.id, "note", e.target.value)}/>
-                    <button className="btn btn-g btn-sm"
-                      disabled={isSav}
-                      onClick={() => saveCorrection(b, "corrigee")}>
-                      {isSav ? "…" : "✓ Corrigée"}
-                    </button>
-                    <button className="btn btn-gh btn-sm"
-                      disabled={isSav}
-                      onClick={() => saveCorrection(b, "rejetee")}>
-                      ↩ Rejeter
-                    </button>
-                  </div>
+          {/* EN ATTENTE */}
+          {fixStats.pending>0&&<div className="fix-section-title" style={{color:"#ef4444"}}>— À CORRIGER ({fixStats.pending}) —</div>}
+          {failedBots.filter(b=>(fixState[b.id]?.statut||"en_attente")==="en_attente").map(b=>{
+            const sess=b.lots?.sessions||{}, defectZones=ZONES.filter(z=>b[z.col]);
+            const st=fixState[b.id]||{zonesFixed:new Set(),note:"",operateur:"",statut:"en_attente"};
+            const isSav=fixSaving.has(b.id);
+            return (
+              <div className="fx-card" key={b.id}>
+                <div className="fx-hdr">
+                  <div className="fx-serial">{b.num_serie}</div>
+                  <div className="fx-badge machine">{sess.machine||"—"}</div>
+                  <div className="fx-badge type">{sess.bottle_type||"—"}</div>
+                  <div className="fx-badge date">{sess.date||"—"}</div>
+                  <div className="fx-badge lot">Lot {b.lots?.lot_num||"?"}</div>
+                  <div className="fx-status pending">EN ATTENTE</div>
                 </div>
-              );
-            })
-          }
-
-          {/* ── CORRIGÉES ── */}
-          {fixStats.done > 0 && (
-            <div className="fix-section-title" style={{color:"#10b981",marginTop:10}}>
-              — CORRIGÉES ({fixStats.done}) —
-            </div>
-          )}
-          {failedBots
-            .filter(b => fixState[b.id]?.statut === "corrigee")
-            .map(b => {
-              const sess = b.lots?.sessions || {};
-              const st   = fixState[b.id] || {};
-              const defectZones  = ZONES.filter(z => b[z.col]);
-              const fixedZones   = ZONES.filter(z => st.zonesFixed?.has(z.id));
-              return (
-                <div className="fx-card saved" key={b.id}>
-                  <div className="fx-hdr">
-                    <div className="fx-serial" style={{color:"var(--light)"}}>{b.num_serie}</div>
-                    <div className="fx-badge machine">{sess.machine||"—"}</div>
-                    <div className="fx-badge date">{sess.date||"—"}</div>
-                    <div className="fx-badge lot">Lot {b.lots?.lot_num||"?"}</div>
-                    <div className="fx-status done">✓ CORRIGÉE</div>
-                  </div>
-                  <div className="fx-orig">
-                    <div className="fx-orig-lbl">Défauts originaux :</div>
-                    <div className="fx-zone-tags">
-                      {defectZones.map(z => (
-                        <div key={z.id} className="fzt"
-                          style={{color:"var(--muted)",borderColor:"var(--border)",
-                            background:"transparent",textDecoration:"line-through"}}>
-                          {z.label}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {fixedZones.length > 0 && (
-                    <div className="fx-orig" style={{borderBottom:"none"}}>
-                      <div className="fx-orig-lbl">Zones corrigées :</div>
-                      <div className="fx-zone-tags">
-                        {fixedZones.map(z => (
-                          <div key={z.id} className="fzt"
-                            style={{color:"#10b981",borderColor:"rgba(16,185,129,.4)",
-                              background:"rgba(16,185,129,.1)"}}>
-                            ✓ {z.label}
-                          </div>
-                        ))}
+                <div className="fx-orig">
+                  <div className="fx-orig-lbl">Zones défaillantes au test :</div>
+                  <div className="fx-zone-tags">
+                    {defectZones.map(z=>(
+                      <div key={z.id} className="fzt" style={{color:z.color,borderColor:z.color,background:z.color+"18"}}>
+                        ✗ {z.label} — {z.full}
                       </div>
-                    </div>
-                  )}
-                  {(st.note || st.operateur) && (
-                    <div style={{padding:"5px 12px",fontFamily:"var(--mono)",fontSize:8,color:"var(--amber)"}}>
-                      {st.operateur && `👤 ${st.operateur}  `}
-                      {st.note && `📝 ${st.note}`}
-                    </div>
-                  )}
-                  <div className="fx-bottom">
-                    <button className="btn btn-gh btn-sm"
-                      onClick={() => saveCorrection(b, "en_attente")}>
-                      ↩ Démarquer
-                    </button>
+                    ))}
                   </div>
                 </div>
-              );
-            })
-          }
-
-          {/* ── REJETÉES ── */}
-          {fixStats.rejected > 0 && (
-            <>
-              <div className="fix-section-title" style={{color:"var(--muted)",marginTop:10}}>
-                — REJETÉES ({fixStats.rejected}) —
+                <div className="fx-zones">
+                  <div className="fx-zones-lbl">
+                    🔧 Zones corrigées
+                    <span style={{color:"var(--muted)",fontSize:7,fontWeight:400}}>(sélectionnez les zones corrigées)</span>
+                  </div>
+                  <div className="fx-zone-btns">
+                    {ZONES.map(z=>(
+                      <button key={z.id} className={`fzb${st.zonesFixed?.has(z.id)?` sel-${z.id}`:""}`}
+                        onClick={()=>toggleFixZone(b.id,z.id)}>
+                        {st.zonesFixed?.has(z.id)?"✓":"○"} {z.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="fx-bottom">
+                  <input className="fx-op" placeholder="Opérateur correction…"
+                    value={st.operateur||""} onChange={e=>setFixField(b.id,"operateur",e.target.value)}/>
+                  <input className="fx-note" placeholder="Note de correction…"
+                    value={st.note||""} onChange={e=>setFixField(b.id,"note",e.target.value)}/>
+                  <button className="btn btn-g btn-sm" disabled={isSav}
+                    onClick={()=>saveCorrection(b,"corrigee")}>{isSav?"…":"✓ Corrigée"}</button>
+                  <button className="btn btn-gh btn-sm" disabled={isSav}
+                    onClick={()=>saveCorrection(b,"rejetee")}>↩ Rejeter</button>
+                </div>
               </div>
-              {failedBots
-                .filter(b => fixState[b.id]?.statut === "rejetee")
-                .map(b => {
-                  const sess = b.lots?.sessions || {};
-                  const st   = fixState[b.id] || {};
-                  return (
-                    <div className="fx-card rejected" key={b.id}>
-                      <div className="fx-hdr">
-                        <div className="fx-serial" style={{color:"var(--muted)"}}>{b.num_serie}</div>
-                        <div className="fx-badge machine">{sess.machine||"—"}</div>
-                        <div className="fx-badge date">{sess.date||"—"}</div>
-                        <div className="fx-status reject">↩ REJETÉE</div>
-                      </div>
-                      <div className="fx-bottom">
-                        <button className="btn btn-gh btn-sm"
-                          onClick={() => saveCorrection(b, "en_attente")}>
-                          ↩ Remettre en attente
-                        </button>
-                      </div>
+            );
+          })}
+
+          {/* CORRIGÉES */}
+          {fixStats.done>0&&<div className="fix-section-title" style={{color:"#10b981",marginTop:10}}>— CORRIGÉES ({fixStats.done}) —</div>}
+          {failedBots.filter(b=>fixState[b.id]?.statut==="corrigee").map(b=>{
+            const sess=b.lots?.sessions||{}, st=fixState[b.id]||{};
+            const defectZones=ZONES.filter(z=>b[z.col]), fixedZones=ZONES.filter(z=>st.zonesFixed?.has(z.id));
+            return (
+              <div className="fx-card saved" key={b.id}>
+                <div className="fx-hdr">
+                  <div className="fx-serial" style={{color:"var(--light)"}}>{b.num_serie}</div>
+                  <div className="fx-badge machine">{sess.machine||"—"}</div>
+                  <div className="fx-badge date">{sess.date||"—"}</div>
+                  <div className="fx-badge lot">Lot {b.lots?.lot_num||"?"}</div>
+                  <div className="fx-status done">✓ CORRIGÉE</div>
+                </div>
+                <div className="fx-orig">
+                  <div className="fx-orig-lbl">Défauts originaux :</div>
+                  <div className="fx-zone-tags">
+                    {defectZones.map(z=>(
+                      <div key={z.id} className="fzt" style={{color:"var(--muted)",borderColor:"var(--border)",background:"transparent",textDecoration:"line-through"}}>{z.label}</div>
+                    ))}
+                  </div>
+                </div>
+                {fixedZones.length>0&&(
+                  <div className="fx-orig" style={{borderBottom:"none"}}>
+                    <div className="fx-orig-lbl">Zones corrigées :</div>
+                    <div className="fx-zone-tags">
+                      {fixedZones.map(z=>(
+                        <div key={z.id} className="fzt" style={{color:"#10b981",borderColor:"rgba(16,185,129,.4)",background:"rgba(16,185,129,.1)"}}>✓ {z.label}</div>
+                      ))}
                     </div>
-                  );
-                })
-              }
+                  </div>
+                )}
+                {(st.note||st.operateur)&&(
+                  <div style={{padding:"5px 12px",fontFamily:"var(--mono)",fontSize:8,color:"var(--amber)"}}>
+                    {st.operateur&&`👤 ${st.operateur}  `}{st.note&&`📝 ${st.note}`}
+                  </div>
+                )}
+                <div className="fx-bottom">
+                  <button className="btn btn-gh btn-sm" onClick={()=>saveCorrection(b,"en_attente")}>↩ Démarquer</button>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* REJETÉES */}
+          {fixStats.rejected>0&&(
+            <>
+              <div className="fix-section-title" style={{color:"var(--muted)",marginTop:10}}>— REJETÉES ({fixStats.rejected}) —</div>
+              {failedBots.filter(b=>fixState[b.id]?.statut==="rejetee").map(b=>{
+                const sess=b.lots?.sessions||{};
+                return (
+                  <div className="fx-card rejected" key={b.id}>
+                    <div className="fx-hdr">
+                      <div className="fx-serial" style={{color:"var(--muted)"}}>{b.num_serie}</div>
+                      <div className="fx-badge machine">{sess.machine||"—"}</div>
+                      <div className="fx-badge date">{sess.date||"—"}</div>
+                      <div className="fx-status reject">↩ REJETÉE</div>
+                    </div>
+                    <div className="fx-bottom">
+                      <button className="btn btn-gh btn-sm" onClick={()=>saveCorrection(b,"en_attente")}>↩ Remettre en attente</button>
+                    </div>
+                  </div>
+                );
+              })}
             </>
           )}
         </div>
       )}
-
       <div className="fix-bar">
         <span style={{fontFamily:"var(--mono)",fontSize:9,color:"var(--muted)"}}>
-          <b style={{color:"var(--amber2)"}}>{fixStats.total}</b> bouteilles NOK ·
+          <b style={{color:"var(--amber2)"}}>{fixStats.total}</b> NOK ·
           <b style={{color:"#10b981",marginLeft:4}}>{fixStats.done}</b> corrigées ·
           <b style={{color:"#ef4444",marginLeft:4}}>{fixStats.pending}</b> en attente
         </span>
         <div style={{marginLeft:"auto",display:"flex",gap:6}}>
-          {failedBots.length > 0 && (
-            <button className="btn btn-g btn-sm" onClick={exportCorrections}>📊 Rapport Excel</button>
-          )}
+          {failedBots.length>0&&<button className="btn btn-g btn-sm" onClick={exportCorrections}>📊 Rapport Excel</button>}
           <button className="btn btn-gh btn-sm" onClick={()=>setScreen("machine")}>← Accueil</button>
         </div>
       </div>
@@ -1672,9 +1781,8 @@ export default function App() {
       <div className="top-bar">
         <div className="top-machine">HISTORIQUE</div>
         <div className="chips">
-          {sb?<div className="chip ok">☁ <span>Supabase</span></div>
-             :<div className="chip er">☁ <span>Connexion…</span></div>}
-          {histData&&<div className="chip">📊 <span>{histData.length} sessions</span></div>}
+          {sb?<div className="chip ok">☁ <span>Supabase</span></div>:<div className="chip er">☁ <span>…</span></div>}
+          {histData&&<div className="chip">📊 <span>{histData.filter(s=>s.type==="test").length} sessions test</span></div>}
         </div>
         <div className="top-right">
           <button className="btn btn-gh btn-sm" onClick={loadHistory}>↺</button>
@@ -1683,18 +1791,16 @@ export default function App() {
       </div>
       <div className="hist-body">
         <div className="hist-search">
-          <input type="date" className="hs-inp"
-            value={searchDate} onChange={e=>setSearchDate(e.target.value)}/>
+          <input type="date" className="hs-inp" value={searchDate} onChange={e=>setSearchDate(e.target.value)}/>
           {searchDate&&<button className="hs-clear" onClick={()=>setSearchDate("")}>✕</button>}
-          {searchDate&&histByDayMachine[searchDate]&&(
-            <button className="btn btn-g btn-sm" onClick={()=>exportFullDay(searchDate)}>
-              📊 Tout télécharger
+          {searchDate&&histByDay[searchDate]&&(
+            <button className="btn btn-g btn-sm" onClick={()=>buildDayExcel(searchDate)}>
+              📊 Télécharger {searchDate}
             </button>
           )}
-          {!searchDate&&(
-            <span style={{fontFamily:"var(--mono)",fontSize:8,color:"var(--muted)"}}>Filtrer par date</span>
-          )}
+          {!searchDate&&<span style={{fontFamily:"var(--mono)",fontSize:8,color:"var(--muted)"}}>Filtrer par date</span>}
         </div>
+
         {histLoading&&<div className="hload"><div className="hspinner"/>CHARGEMENT…</div>}
         {!histLoading&&histData!==null&&filteredDays.length===0&&(
           <div className="hempty">
@@ -1703,14 +1809,20 @@ export default function App() {
             {!searchDate&&<button className="btn btn-a" onClick={()=>setScreen("machine")}>+ Commencer</button>}
           </div>
         )}
+
         {!histLoading&&filteredDays.map(day=>{
-          const dayMachines=histByDayMachine[day];
-          const allS=Object.values(dayMachines).flat();
-          const dayTot=allS.reduce((a,s)=>a+s.total,0),dayOk=allS.reduce((a,s)=>a+s.nb_ok,0);
-          const dayNok=allS.reduce((a,s)=>a+s.nb_nok,0);
+          const dayData=histByDay[day];
+          const allTestSessions=Object.values(dayData.tests||{}).flat();
+          const allCorrSessions=Object.values(dayData.corrections||{}).flat();
+          const allBots=allTestSessions.flatMap(s=>s.lots.flatMap(l=>l.bouteilles));
+          const dayTot=allBots.length, dayOk=allBots.filter(b=>b.succes).length;
+          const dayNok=allBots.filter(b=>!b.succes&&(b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
           const dayTx=(dayOk+dayNok)>0?Math.round(dayOk/(dayOk+dayNok)*100):null;
+          const dayFix=allCorrSessions.flatMap(s=>s.corrections||[]).filter(c=>c.statut==="corrigee").length;
+
           return (
             <div className="day-block" key={day}>
+              {/* Day header */}
               <div className="day-hdr">
                 <div className="day-lbl">{fmtDate(day)}</div>
                 <div className="day-stats">
@@ -1718,75 +1830,97 @@ export default function App() {
                   <div className="ds dok">✓{dayOk}</div>
                   <div className="ds dnok">✗{dayNok}</div>
                   {dayTx!==null&&<div className="ds dtx">{dayTx}%</div>}
-                  <button className="btn btn-g btn-sm" onClick={()=>exportFullDay(day)}>
-                    📊 Tout le jour + stats
+                  {dayFix>0&&<div className="ds" style={{color:"var(--amber)",borderColor:"rgba(245,158,11,.3)",background:"rgba(245,158,11,.06)"}}>🔧{dayFix}</div>}
+                  <button className="btn btn-g btn-sm" onClick={()=>buildDayExcel(day)}>
+                    📊 Rapport complet
                   </button>
                 </div>
               </div>
-              {Object.entries(dayMachines).map(([macName,sessions])=>{
-                const mTot=sessions.reduce((a,s)=>a+s.total,0),mOk=sessions.reduce((a,s)=>a+s.nb_ok,0);
-                const mNok=sessions.reduce((a,s)=>a+s.nb_nok,0);
-                const mTx=(mOk+mNok)>0?Math.round(mOk/(mOk+mNok)*100):null;
-                return (
-                  <div className="med-block" key={macName}>
-                    <div className="med-hdr">
-                      <div className="med-name">{macName}</div>
-                      <div className="med-pills">
-                        <div className="mpill mt">{mTot} bts</div>
-                        <div className="mpill mo">✓{mOk}</div>
-                        <div className="mpill mn">✗{mNok}</div>
-                        {mTx!==null&&<div className="mpill mx">{mTx}%</div>}
-                      </div>
-                      <div className="med-dl">
-                        <button className="btn btn-g btn-sm"
-                          onClick={()=>exportMachineDay(day,macName,sessions)}>
-                          📊 {macName}
-                        </button>
-                      </div>
-                    </div>
-                    {sessions.map(s=>{
-                      const isOpen=expanded.has(s.id);
-                      const sTx=(s.nb_ok+s.nb_nok)>0?Math.round(s.nb_ok/(s.nb_ok+s.nb_nok)*100):null;
-                      return (
-                        <div className="sess-card" key={s.id}>
-                          <div className="sess-hdr" onClick={()=>{
-                            setExpanded(prev=>{const n=new Set(prev);n.has(s.id)?n.delete(s.id):n.add(s.id);return n;});
-                          }}>
-                            <div className="sh-type">{s.bottle_type}</div>
-                            {s.operateur&&<div className="sh-op">👥 {s.operateur}</div>}
-                            <div className="sh-time">🕐 {fmtTime(s.created_at)}</div>
-                            <div className="sh-pills">
-                              <div className="shp st">{s.total}</div>
-                              <div className="shp so">✓{s.nb_ok}</div>
-                              <div className="shp sn">✗{s.nb_nok}</div>
-                              {sTx!==null&&<div className="shp sx">{sTx}%</div>}
-                            </div>
-                            <span className={`sh-chev${isOpen?" open":""}`}>▶</span>
-                          </div>
-                          {isOpen&&(
-                            <div className="sess-detail">
 
-                              {/* ── SECTION 1 : RÉSULTATS DU TEST ── */}
-                              <div className="hist-section">
-                                <div className="hist-section-hdr test">
-                                  🧪 RÉSULTATS DU TEST
-                                  <span style={{marginLeft:"auto",fontWeight:400,color:"var(--light)"}}>
-                                    {s.total} bts · ✓{s.nb_ok} · ✗{s.nb_nok}
-                                  </span>
+              {/* ── TESTS ── */}
+              {Object.keys(dayData.tests||{}).length>0&&(
+                <>
+                  <div className="day-sub-title">
+                    <span style={{color:"var(--blue)"}}>🧪</span> RÉSULTATS DES TESTS
+                  </div>
+                  {Object.entries(dayData.tests).map(([macName,sessions])=>{
+                    const mBots=sessions.flatMap(s=>s.lots.flatMap(l=>l.bouteilles));
+                    const mTot=mBots.length, mOk=mBots.filter(b=>b.succes).length;
+                    const mNok=mBots.filter(b=>!b.succes&&(b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
+                    const mTx=(mOk+mNok)>0?Math.round(mOk/(mOk+mNok)*100):null;
+                    return (
+                      <div className="med-block" key={macName}>
+                        <div className="med-hdr">
+                          <div className="med-name">{macName}</div>
+                          <div className="med-pills">
+                            <div className="mpill mt">{mTot} bts</div>
+                            <div className="mpill mo">✓{mOk}</div>
+                            <div className="mpill mn">✗{mNok}</div>
+                            {mTx!==null&&<div className="mpill mx">{mTx}%</div>}
+                          </div>
+                          <div className="med-dl" style={{display:"flex",gap:5}}>
+                            <button className="btn btn-g btn-sm" onClick={()=>buildMachineExcel(day,macName,sessions)}>
+                              📊 {macName}
+                            </button>
+                            <button className="btn btn-r btn-sm"
+                              disabled={deleting.has(`${day}_${macName}`)}
+                              onClick={()=>deleteMachineDay(day,macName,sessions)}
+                              title={`Supprimer toutes les sessions ${macName} du ${day}`}>
+                              {deleting.has(`${day}_${macName}`) ? "…" : "🗑"}
+                            </button>
+                          </div>
+                        </div>
+                        {sessions.map(s=>{
+                          const isOpen=expanded.has(s.id);
+                          const sTx=(s.nb_ok+s.nb_nok)>0?Math.round(s.nb_ok/(s.nb_ok+s.nb_nok)*100):null;
+                          return (
+                            <div className="sess-card" key={s.id}>
+                              <div className="sess-hdr" onClick={()=>{
+                                setExpanded(prev=>{const n=new Set(prev);n.has(s.id)?n.delete(s.id):n.add(s.id);return n;});
+                              }}>
+                                <div className="sh-type">{s.bottle_type}</div>
+                                {s.operateur&&<div className="sh-op">👥 {s.operateur}</div>}
+                                <div className="sh-time">🕐 {fmtTime(s.created_at)}</div>
+                                <div className="sh-pills">
+                                  <div className="shp st">{s.total}</div>
+                                  <div className="shp so">✓{s.nb_ok}</div>
+                                  <div className="shp sn">✗{s.nb_nok}</div>
+                                  {sTx!==null&&<div className="shp sx">{sTx}%</div>}
+                                  {s.nb_fix>0&&<div className="shp sc">🔧{s.nb_fix}</div>}
                                 </div>
-                                <div className="hist-section-body">
+                                <button className="btn btn-r btn-sm"
+                                  style={{padding:"2px 7px",fontSize:10,marginLeft:4}}
+                                  disabled={deleting.has(s.id)}
+                                  onClick={e=>{e.stopPropagation();deleteSession(s);}}
+                                  title="Supprimer cette session">
+                                  {deleting.has(s.id) ? "…" : "🗑"}
+                                </button>
+                                <span className={`sh-chev${isOpen?" open":""}`}>▶</span>
+                              </div>
+                              {isOpen&&(
+                                <div className="sess-detail">
                                   {s.lots.map(lot=>{
                                     const lOk=lot.bouteilles.filter(b=>b.succes).length;
                                     const lNok=lot.bouteilles.filter(b=>!b.succes&&(b.zone_col||b.zone_med||b.zone_gal||b.zone_pied)).length;
                                     return (
-                                      <div className="lot-mini" key={lot.id}
-                                        style={{borderRadius:0,border:"none",borderBottom:"1px solid var(--border)"}}>
-                                        <div className="lmh" style={{borderRadius:0}}>
+                                      <div className="lot-mini" key={lot.id}>
+                                        <div className="lmh">
                                           <span>LOT</span><span className="lmh-n">{lot.lot_num}</span>
                                           <span style={{color:"var(--muted)"}}>·</span>
                                           <span>{lot.bouteilles.length} bts</span>
                                           <span className="lmh-ok">✓{lOk}</span>
                                           <span className="lmh-nok">✗{lNok}</span>
+                                          <button
+                                            style={{marginLeft:"auto",background:"rgba(239,68,68,.12)",
+                                              border:"1px solid #ef4444",color:"#ef4444",
+                                              fontFamily:"var(--mono)",fontSize:8,padding:"1px 7px",
+                                              borderRadius:2,cursor:"pointer",lineHeight:"14px",
+                                              opacity:deleting.has(lot.id)?0.5:1}}
+                                            disabled={deleting.has(lot.id)}
+                                            onClick={e=>{e.stopPropagation();deleteLot(lot,s.id);}}
+                                            title={`Supprimer le Lot ${lot.lot_num}`}>
+                                            {deleting.has(lot.id)?"…":"🗑 Supprimer"}
+                                          </button>
                                         </div>
                                         <table className="lmt">
                                           <thead>
@@ -1821,95 +1955,99 @@ export default function App() {
                                     );
                                   })}
                                 </div>
-                              </div>
-
-                              {/* ── SECTION 2 : CORRECTIONS ── */}
-                              {(() => {
-                                const corrs = s.corrections || [];
-                                const hasCorrr = corrs.length > 0;
-                                return (
-                                  <div className="hist-section">
-                                    <div className={`hist-section-hdr ${hasCorrr ? "corr" : "corr-none"}`}>
-                                      🔧 CORRECTIONS
-                                      {hasCorrr ? (
-                                        <span style={{marginLeft:"auto",fontWeight:400,color:"var(--light)"}}>
-                                          {corrs.filter(c=>c.statut==="corrigee").length} corrigées ·
-                                          {" "}{corrs.filter(c=>c.statut==="en_attente").length} en attente ·
-                                          {" "}{corrs.filter(c=>c.statut==="rejetee").length} rejetées
-                                        </span>
-                                      ) : (
-                                        <span style={{marginLeft:"auto",fontWeight:400,color:"var(--muted)"}}>
-                                          Aucune correction enregistrée
-                                        </span>
-                                      )}
-                                    </div>
-                                    {hasCorrr && (
-                                      <div className="hist-section-body">
-                                        {corrs.map(c => {
-                                          const origZones = ZONES.filter(z => c[z.col]);
-                                          const fixedZones = ZONES.filter(z =>
-                                            (c.zones_corrigees || []).includes(z.id));
-                                          return (
-                                            <div className="hcorr-row" key={c.id}>
-                                              <div className="hcorr-serial">{c.num_serie}</div>
-
-                                              {/* Original defect zones */}
-                                              <div className="hcorr-orig">
-                                                {origZones.map(z=>(
-                                                  <span key={z.id} className="hcorr-ztag orig">✗{z.label}</span>
-                                                ))}
-                                              </div>
-
-                                              {/* Arrow */}
-                                              {fixedZones.length > 0 && (
-                                                <span className="hcorr-arrow">→</span>
-                                              )}
-
-                                              {/* Fixed zones */}
-                                              <div className="hcorr-fixed">
-                                                {c.statut === "rejetee" ? (
-                                                  <span className="hcorr-ztag rejected">rejetée</span>
-                                                ) : fixedZones.map(z=>(
-                                                  <span key={z.id} className="hcorr-ztag fixed">✓{z.label}</span>
-                                                ))}
-                                              </div>
-
-                                              {/* Statut badge */}
-                                              <span className={`hcorr-statut ${
-                                                c.statut==="corrigee"  ? "ok" :
-                                                c.statut==="rejetee"   ? "rj" : "at"}`}>
-                                                {c.statut==="corrigee"  ? "✓ CORRIGÉE" :
-                                                 c.statut==="rejetee"   ? "↩ REJETÉE"  : "⏳ EN ATTENTE"}
-                                              </span>
-
-                                              {/* Meta */}
-                                              <div className="hcorr-meta">
-                                                {c.corrigee_par && `👤 ${c.corrigee_par}`}
-                                                {c.corrigee_par && c.created_at && "  "}
-                                                {c.created_at && fmtTime(c.created_at)}
-                                              </div>
-
-                                              {/* Note */}
-                                              {c.note && (
-                                                <div className="hcorr-note">📝 {c.note}</div>
-                                              )}
-                                            </div>
-                                          );
-                                        })}
-                                      </div>
-                                    )}
-                                  </div>
-                                );
-                              })()}
-
+                              )}
                             </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+
+              {/* ── CORRECTIONS ── */}
+              {Object.keys(dayData.corrections||{}).length>0&&(
+                <>
+                  <div className="day-sub-title">
+                    <span style={{color:"var(--amber)"}}>🔧</span> CORRECTIONS
+                    <span style={{fontWeight:400,color:"var(--muted)",marginLeft:4}}>— session séparée</span>
                   </div>
-                );
-              })}
+                  {Object.entries(dayData.corrections).map(([macName,corrSessions])=>{
+                    const allCorrs=corrSessions.flatMap(s=>s.corrections||[]);
+                    const nbDone=allCorrs.filter(c=>c.statut==="corrigee").length;
+                    const nbPend=allCorrs.filter(c=>c.statut==="en_attente").length;
+                    return (
+                      <div className="med-block" key={`corr_${macName}`}
+                        style={{borderColor:"rgba(245,158,11,.3)"}}>
+                        <div className="med-hdr" style={{background:"rgba(245,158,11,.05)"}}>
+                          <div className="med-name" style={{color:"var(--amber)"}}>{macName}</div>
+                          <div className="med-pills">
+                            <div className="mpill mt">{allCorrs.length} corr.</div>
+                            <div className="mpill mo">✓{nbDone}</div>
+                            {nbPend>0&&<div className="mpill mn">⏳{nbPend}</div>}
+                            <div className="mpill mfix">{pct(nbDone,allCorrs.length)}%</div>
+                          </div>
+                        </div>
+                        {corrSessions.map(s=>{
+                          const isOpen=expanded.has(s.id);
+                          const corrs=s.corrections||[];
+                          return (
+                            <div className="sess-card corr-sess" key={s.id}>
+                              <div className="sess-hdr" onClick={()=>{
+                                setExpanded(prev=>{const n=new Set(prev);n.has(s.id)?n.delete(s.id):n.add(s.id);return n;});
+                              }}>
+                                <div className="sh-tag-corr">🔧 CORRECTIONS</div>
+                                {s.operateur&&<div className="sh-op">👥 {s.operateur}</div>}
+                                <div className="sh-time">🕐 {fmtTime(s.created_at)}</div>
+                                <div className="sh-pills">
+                                  <div className="shp st">{corrs.length}</div>
+                                  <div className="shp so">✓{corrs.filter(c=>c.statut==="corrigee").length}</div>
+                                  <div className="shp sn">⏳{corrs.filter(c=>c.statut==="en_attente").length}</div>
+                                </div>
+                                <span className={`sh-chev${isOpen?" open":""}`}>▶</span>
+                              </div>
+                              {isOpen&&(
+                                <div className="sess-detail">
+                                  {corrs.map(c=>{
+                                    const origZones=ZONES.filter(z=>c[z.col]);
+                                    const fixedZones=ZONES.filter(z=>(c.zones_corrigees||[]).includes(z.id));
+                                    return (
+                                      <div className="corr-row" key={c.id}>
+                                        <div className="cr-serial">{c.num_serie}</div>
+                                        <div className="cr-zones">
+                                          {origZones.map(z=>(
+                                            <span key={z.id} className="cr-ztag orig">✗{z.label}</span>
+                                          ))}
+                                        </div>
+                                        {fixedZones.length>0&&<span className="cr-arrow">→</span>}
+                                        <div className="cr-zones">
+                                          {c.statut==="rejetee"?(
+                                            <span className="cr-ztag rj">rejetée</span>
+                                          ):fixedZones.map(z=>(
+                                            <span key={z.id} className="cr-ztag fixed">✓{z.label}</span>
+                                          ))}
+                                        </div>
+                                        <span className={`cr-statut ${c.statut==="corrigee"?"ok":c.statut==="rejetee"?"rj":"at"}`}>
+                                          {c.statut==="corrigee"?"✓ CORRIGÉE":c.statut==="rejetee"?"↩ REJETÉE":"⏳ EN ATTENTE"}
+                                        </span>
+                                        <div className="cr-meta">
+                                          {c.corrigee_par&&`👤 ${c.corrigee_par}  `}
+                                          {c.created_at&&fmtTime(c.created_at)}
+                                        </div>
+                                        {c.note&&<div className="cr-note">📝 {c.note}</div>}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
             </div>
           );
         })}
