@@ -956,20 +956,26 @@ export default function App() {
     return {byDay6,byDay125,byDayAll,byWeek6,byWeek125,byWeekAll,byMonth6,byMonth125,byMonthAll};
   }
 
-  const HDR_TEST = ["Machine","Opérateurs","Sessions","Total","✓ OK","✗ NOK",
-    "Taux %  [= OK÷(OK+NOK)]",
-    "Col (nb)","Col % des NOK","Col % du total",
-    "Med (nb)","Med % des NOK","Med % du total",
-    "Gal (nb)","Gal % des NOK","Gal % du total",
-    "Pied (nb)","Pied % des NOK","Pied % du total"];
+  const HDR_TEST = [
+    "Machine", "Opérateurs", "Sessions", "Total testé",
+    "✓ % Réussite  [= OK ÷ Total]",
+    "✗ % Échec     [= NOK ÷ Total]",
+    "Col %  [= Col ÷ Total]",
+    "Med %  [= Med ÷ Total]",
+    "Gal %  [= Gal ÷ Total]",
+    "Pied % [= Pied ÷ Total]",
+  ];
 
   function machineRow(mac,ops,nb,s){
-    return [mac,ops||"—",nb,s.tot,s.ok,s.nok,
-      s.tot>0?s.taux+"%":"—",
-      s.col,s.nok>0?pct(s.col,s.nok)+"%":"—",s.tot>0?pct(s.col,s.tot)+"%":"—",
-      s.med,s.nok>0?pct(s.med,s.nok)+"%":"—",s.tot>0?pct(s.med,s.tot)+"%":"—",
-      s.gal,s.nok>0?pct(s.gal,s.nok)+"%":"—",s.tot>0?pct(s.gal,s.tot)+"%":"—",
-      s.pid,s.nok>0?pct(s.pid,s.nok)+"%":"—",s.tot>0?pct(s.pid,s.tot)+"%":"—"];
+    return [
+      mac, ops||"—", nb, s.tot,
+      s.tot>0 ? pct(s.ok,  s.tot)+"%" : "—",
+      s.tot>0 ? pct(s.nok, s.tot)+"%" : "—",
+      s.tot>0 ? pct(s.col, s.tot)+"%" : "—",
+      s.tot>0 ? pct(s.med, s.tot)+"%" : "—",
+      s.tot>0 ? pct(s.gal, s.tot)+"%" : "—",
+      s.tot>0 ? pct(s.pid, s.tot)+"%" : "—",
+    ];
   }
 
   function buildTypeSection(rows,label,sessions){
@@ -977,8 +983,7 @@ export default function App() {
     const bots=sessions.flatMap(s=>s.lots.flatMap(l=>l.bouteilles));
     const s=calcBotsStats(bots);
     if(!s.tot) return;
-    rows.push(["════════════════════════════════════════════"]);
-    rows.push([label]); rows.push([]);
+    rows.push([label]);
     rows.push(HDR_TEST);
     const macs=[...new Set(sessions.map(s=>s.machine))];
     macs.forEach(mac=>{
@@ -987,25 +992,30 @@ export default function App() {
       const ops=ms.map(s=>s.operateur).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(", ")||"—";
       rows.push(machineRow(mac,ops,ms.length,calcBotsStats(mb)));
     });
-    rows.push(machineRow("TOTAL",[...new Set(sessions.map(s=>s.operateur).filter(Boolean))].join(", ")||"—",sessions.length,s));
-    rows.push([]);
-    rows.push(["Zone","Nom","Nb défauts","% des NOK  [= Défauts÷NOK]","% du total  [= Défauts÷Total]"]);
-    ZONES.forEach(z=>{
-      const c=bots.filter(b=>b[z.col]).length;
-      rows.push([z.id,z.full,c,s.nok>0?pct(c,s.nok)+"%":"—",s.tot>0?pct(c,s.tot)+"%":"—"]);
-    });
+    if(macs.length>1){
+      const ops=[...new Set(sessions.map(s=>s.operateur).filter(Boolean))].join(", ")||"—";
+      rows.push(machineRow("TOTAL",ops,sessions.length,s));
+    }
     rows.push([]);
   }
 
   function buildStatsSheet(title,o6,o125,oAll,labelFn){
-    const hdr=["Période","Total","✓ OK","✗ NOK","Taux %  [= OK÷(OK+NOK)]",
-      "Col (nb)","Col % NOK","Col % total","Med (nb)","Med % NOK","Med % total",
-      "Gal (nb)","Gal % NOK","Gal % total","Pied (nb)","Pied % NOK","Pied % total"];
-    const dataRow=(lbl,s)=>[lbl,s.total,s.ok,s.nok,s.total>0?pct(s.ok,s.ok+s.nok)+"%":"—",
-      s.col,s.nok>0?pct(s.col,s.nok)+"%":"—",s.total>0?pct(s.col,s.total)+"%":"—",
-      s.med,s.nok>0?pct(s.med,s.nok)+"%":"—",s.total>0?pct(s.med,s.total)+"%":"—",
-      s.gal,s.nok>0?pct(s.gal,s.nok)+"%":"—",s.total>0?pct(s.gal,s.total)+"%":"—",
-      s.pid,s.nok>0?pct(s.pid,s.nok)+"%":"—",s.total>0?pct(s.pid,s.total)+"%":"—"];
+    const hdr=["Période","Total testé",
+      "✓ % Réussite  [= OK÷Total]",
+      "✗ % Échec     [= NOK÷Total]",
+      "Col %  [= Col÷Total]",
+      "Med %  [= Med÷Total]",
+      "Gal %  [= Gal÷Total]",
+      "Pied % [= Pied÷Total]"];
+    const dataRow=(lbl,s)=>[
+      lbl, s.total,
+      s.total>0 ? pct(s.ok,  s.total)+"%" : "—",
+      s.total>0 ? pct(s.nok, s.total)+"%" : "—",
+      s.total>0 ? pct(s.col, s.total)+"%" : "—",
+      s.total>0 ? pct(s.med, s.total)+"%" : "—",
+      s.total>0 ? pct(s.gal, s.total)+"%" : "—",
+      s.total>0 ? pct(s.pid, s.total)+"%" : "—",
+    ];
     const buildSec=(lbl,obj)=>{
       const entries=Object.entries(obj).sort(([a],[b])=>b.localeCompare(a));
       if(!entries.length) return [];
@@ -1016,13 +1026,12 @@ export default function App() {
       r.push(dataRow("TOTAL",tot));r.push([]);return r;
     };
     const rows=[[`📊 STATISTIQUES ${title}`],[],
-      ["FORMULES : Taux = OK÷(OK+NOK) | % NOK = Défauts÷NOK | % total = Défauts÷Total"],[],
+      ["FORMULES : Taux = OK÷(OK+NOK) | % du total = Défauts÷Total × 100"],[],
       ...buildSec("🫙 BOUTEILLES 6 KG",o6),
       ...buildSec("🫙 BOUTEILLES 12.5 KG",o125),
       ...buildSec("📊 TOTAL — 6 KG + 12.5 KG",oAll)];
     const ws=XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"]=[{wch:30},{wch:8},{wch:7},{wch:7},{wch:28},
-      {wch:8},{wch:12},{wch:12},{wch:8},{wch:12},{wch:12},{wch:8},{wch:12},{wch:12},{wch:8},{wch:12},{wch:12}];
+    ws["!cols"]=[{wch:30},{wch:10},{wch:24},{wch:24},{wch:14},{wch:14},{wch:14},{wch:14}];
     return ws;
   }
 
@@ -1035,14 +1044,24 @@ export default function App() {
     const t125=allTests.filter(s=>s.bottle_type==="12.5KG");
     const {byDay6,byDay125,byDayAll,byWeek6,byWeek125,byWeekAll,byMonth6,byMonth125,byMonthAll}=computeStats(histData||[]);
 
-    const resRows=[[`RÉSUMÉ — ${fmtDate(day)}`],[`Exporté le : ${new Date().toLocaleString("fr-FR")}`],[],
-      ["FORMULES : Taux=OK÷(OK+NOK) | %NOK=Défauts÷NOK | %Total=Défauts÷Total"],[],];
-    buildTypeSection(resRows,"🫙 6 KG",t6);
-    buildTypeSection(resRows,"🫙 12.5 KG",t125);
-    buildTypeSection(resRows,"📊 TOTAL — 6 KG + 12.5 KG",allTests);
+    const resRows=[
+      [`RÉSUMÉ — ${fmtDate(day)}`],
+      [`Exporté le : ${new Date().toLocaleString("fr-FR")}`],
+      [],
+      ["FORMULE : % Réussite = OK÷Total | % Échec = NOK÷Total | % Zone = Défauts zone÷Total"],
+      [],
+    ];
+    const hasBoth = t6.length>0 && t125.length>0;
+    if(hasBoth){
+      buildTypeSection(resRows,"🫙 6 KG",t6);
+      buildTypeSection(resRows,"🫙 12.5 KG",t125);
+      buildTypeSection(resRows,"📊 TOTAL — 6 KG + 12.5 KG",allTests);
+    } else {
+      buildTypeSection(resRows, t6.length>0?"🫙 6 KG":"🫙 12.5 KG", allTests);
+    }
 
     const ws1=XLSX.utils.aoa_to_sheet(resRows);
-    ws1["!cols"]=[{wch:16},{wch:20},{wch:9},{wch:8},{wch:7},{wch:7},{wch:28},{wch:8},{wch:16},{wch:16},{wch:8},{wch:16},{wch:16},{wch:8},{wch:16},{wch:16},{wch:8},{wch:16},{wch:16}];
+    ws1["!cols"]=[{wch:18},{wch:22},{wch:9},{wch:10},{wch:24},{wch:24},{wch:14},{wch:14},{wch:14},{wch:14}];
 
     const det6=[["Machine","Type","Opérateurs","Date","Heure","Lot","N° Série","Succès","Col","Med","Gal","Pied","Corrigée"]];
     t6.forEach(s=>s.lots.forEach(l=>l.bouteilles.forEach(b=>{
@@ -1071,13 +1090,24 @@ export default function App() {
     if(!XLSX) return;
     const s6=sessions.filter(s=>s.bottle_type==="6KG"), s125=sessions.filter(s=>s.bottle_type==="12.5KG");
     const {byDay6,byDay125,byDayAll,byWeek6,byWeek125,byWeekAll,byMonth6,byMonth125,byMonthAll}=computeStats(histData||[]);
-    const typeLabel = [s6.length?"6 KG":"", s125.length?"12.5 KG":""].filter(Boolean).join(" + ");
-    const rows=[[`📊 ${macName} — ${fmtDate(day)}`],[],[typeLabel],[],];
-    buildTypeSection(rows,`${macName} — 6 KG`,s6);
-    buildTypeSection(rows,`${macName} — 12.5 KG`,s125);
-    buildTypeSection(rows,`${macName} — TOTAL`,sessions);
+    const typeLabel = s6.length>0 && s125.length>0 ? "6 KG + 12.5 KG" : s6.length>0 ? "6 KG" : "12.5 KG";
+    const hasBoth = s6.length>0 && s125.length>0;
+    const rows=[
+      [`📊 ${macName} — ${fmtDate(day)}`],
+      [`Type : ${typeLabel}  |  Exporté le : ${new Date().toLocaleString("fr-FR")}`],
+      [],
+      ["FORMULE : % Réussite = OK÷Total | % Échec = NOK÷Total | % Zone = Défauts zone÷Total"],
+      [],
+    ];
+    if(hasBoth){
+      buildTypeSection(rows,"🫙 6 KG",s6);
+      buildTypeSection(rows,"🫙 12.5 KG",s125);
+      buildTypeSection(rows,"📊 TOTAL — 6 KG + 12.5 KG",sessions);
+    } else {
+      buildTypeSection(rows, s6.length>0?"🫙 6 KG":"🫙 12.5 KG", sessions);
+    }
     const ws=XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"]=[{wch:16},{wch:20},{wch:9},{wch:8},{wch:7},{wch:7},{wch:28},{wch:8},{wch:16},{wch:16},{wch:8},{wch:16},{wch:16},{wch:8},{wch:16},{wch:16},{wch:8},{wch:16},{wch:16}];
+    ws["!cols"]=[{wch:18},{wch:22},{wch:9},{wch:10},{wch:24},{wch:24},{wch:14},{wch:14},{wch:14},{wch:14}];
     const wb=XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws,"Résumé");
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR JOUR",byDay6,byDay125,byDayAll,fmtDate),"Stats Jours");
