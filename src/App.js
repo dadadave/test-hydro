@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
-const SUPABASE_URL = "https://pupoeypotvaquxjnjqxw.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB1cG9leXBvdHZhcXV4am5qcXh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2NjE5MTgsImV4cCI6MjA5NDIzNzkxOH0.kOGeO2t0TMLUEisFwxwW9jy1sR4g-ccG8pb1aM7Uirg";
+const SUPABASE_URL = "https://hhqjieyzojbtxcgsatrm.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhocWppZXl6b2pidHhjZ3NhdHJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4Njc0MzgsImV4cCI6MjA5NzQ0MzQzOH0.z9mjWwLVVXXXE1rmhj6ulgy1N2O4Sph6-8DMHrUd41I";
 
 function useSupabase() {
   const [sb, setSb] = useState(null);
