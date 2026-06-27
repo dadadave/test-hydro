@@ -637,7 +637,6 @@ export default function App() {
     setCorrDupErrors(errs);
   };
 
-  const corrFilled = corrSerials.map((s,i)=>s.trim()?i:null).filter(i=>i!==null);
   const corrHasDups = Object.keys(corrDupErrors).length > 0;
 
   // Stats du lot corriger courant (recap)
@@ -959,22 +958,24 @@ export default function App() {
   const HDR_TEST = [
     "Machine", "Opérateurs", "Sessions", "Total testé",
     "✓ % Réussite  [= OK ÷ Total]",
+    "✗ Nb NOK",
     "✗ % Échec     [= NOK ÷ Total]",
-    "Col %  [= Col ÷ Total]",
-    "Med %  [= Med ÷ Total]",
-    "Gal %  [= Gal ÷ Total]",
-    "Pied % [= Pied ÷ Total]",
+    "Col — Nb", "Col %  [= Col ÷ Total]",
+    "Med — Nb", "Med %  [= Med ÷ Total]",
+    "Gal — Nb", "Gal %  [= Gal ÷ Total]",
+    "Pied — Nb", "Pied % [= Pied ÷ Total]",
   ];
 
   function machineRow(mac,ops,nb,s){
     return [
       mac, ops||"—", nb, s.tot,
       s.tot>0 ? pct(s.ok,  s.tot)+"%" : "—",
+      s.nok,
       s.tot>0 ? pct(s.nok, s.tot)+"%" : "—",
-      s.tot>0 ? pct(s.col, s.tot)+"%" : "—",
-      s.tot>0 ? pct(s.med, s.tot)+"%" : "—",
-      s.tot>0 ? pct(s.gal, s.tot)+"%" : "—",
-      s.tot>0 ? pct(s.pid, s.tot)+"%" : "—",
+      s.col, s.tot>0 ? pct(s.col, s.tot)+"%" : "—",
+      s.med, s.tot>0 ? pct(s.med, s.tot)+"%" : "—",
+      s.gal, s.tot>0 ? pct(s.gal, s.tot)+"%" : "—",
+      s.pid, s.tot>0 ? pct(s.pid, s.tot)+"%" : "—",
     ];
   }
 
@@ -996,25 +997,36 @@ export default function App() {
       const ops=[...new Set(sessions.map(s=>s.operateur).filter(Boolean))].join(", ")||"—";
       rows.push(machineRow("TOTAL",ops,sessions.length,s));
     }
+    // Ligne récap explicite : nombre de bouteilles ayant échoué et détail par zone affectée
+    rows.push([]);
+    rows.push(["RÉSUMÉ DES ÉCHECS (NOK)"]);
+    rows.push(["Bouteilles testées", s.tot]);
+    rows.push(["Bouteilles ayant échoué le test (NOK)", s.nok]);
+    rows.push(["  dont zone Col (Collerette) affectée",   s.col]);
+    rows.push(["  dont zone Med (Corps médian) affectée", s.med]);
+    rows.push(["  dont zone Gal (Galbe) affectée",        s.gal]);
+    rows.push(["  dont zone Pied (Fond / Pied) affectée", s.pid]);
     rows.push([]);
   }
 
   function buildStatsSheet(title,o6,o125,oAll,labelFn){
     const hdr=["Période","Total testé",
       "✓ % Réussite  [= OK÷Total]",
+      "✗ Nb NOK",
       "✗ % Échec     [= NOK÷Total]",
-      "Col %  [= Col÷Total]",
-      "Med %  [= Med÷Total]",
-      "Gal %  [= Gal÷Total]",
-      "Pied % [= Pied÷Total]"];
+      "Col — Nb","Col %  [= Col÷Total]",
+      "Med — Nb","Med %  [= Med÷Total]",
+      "Gal — Nb","Gal %  [= Gal÷Total]",
+      "Pied — Nb","Pied % [= Pied÷Total]"];
     const dataRow=(lbl,s)=>[
       lbl, s.total,
       s.total>0 ? pct(s.ok,  s.total)+"%" : "—",
+      s.nok,
       s.total>0 ? pct(s.nok, s.total)+"%" : "—",
-      s.total>0 ? pct(s.col, s.total)+"%" : "—",
-      s.total>0 ? pct(s.med, s.total)+"%" : "—",
-      s.total>0 ? pct(s.gal, s.total)+"%" : "—",
-      s.total>0 ? pct(s.pid, s.total)+"%" : "—",
+      s.col, s.total>0 ? pct(s.col, s.total)+"%" : "—",
+      s.med, s.total>0 ? pct(s.med, s.total)+"%" : "—",
+      s.gal, s.total>0 ? pct(s.gal, s.total)+"%" : "—",
+      s.pid, s.total>0 ? pct(s.pid, s.total)+"%" : "—",
     ];
     const buildSec=(lbl,obj)=>{
       const entries=Object.entries(obj).sort(([a],[b])=>b.localeCompare(a));
@@ -1031,7 +1043,7 @@ export default function App() {
       ...buildSec("🫙 BOUTEILLES 12.5 KG",o125),
       ...buildSec("📊 TOTAL — 6 KG + 12.5 KG",oAll)];
     const ws=XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"]=[{wch:30},{wch:10},{wch:24},{wch:24},{wch:14},{wch:14},{wch:14},{wch:14}];
+    ws["!cols"]=[{wch:30},{wch:10},{wch:22},{wch:9},{wch:22},{wch:9},{wch:18},{wch:9},{wch:18},{wch:9},{wch:18},{wch:9},{wch:18}];
     return ws;
   }
 
@@ -1039,7 +1051,6 @@ export default function App() {
     if(!XLSX) return;
     const dayData=histByDay[day]||{tests:{},corrections:{}};
     const allTests=Object.values(dayData.tests||{}).flat();
-    const allCorrs=Object.values(dayData.corrections||{}).flat();
     const t6=allTests.filter(s=>s.bottle_type==="6KG");
     const t125=allTests.filter(s=>s.bottle_type==="12.5KG");
     const {byDay6,byDay125,byDayAll,byWeek6,byWeek125,byWeekAll,byMonth6,byMonth125,byMonthAll}=computeStats(histData||[]);
@@ -1061,7 +1072,7 @@ export default function App() {
     }
 
     const ws1=XLSX.utils.aoa_to_sheet(resRows);
-    ws1["!cols"]=[{wch:18},{wch:22},{wch:9},{wch:10},{wch:24},{wch:24},{wch:14},{wch:14},{wch:14},{wch:14}];
+    ws1["!cols"]=[{wch:32},{wch:22},{wch:9},{wch:22},{wch:9},{wch:18},{wch:9},{wch:18},{wch:9},{wch:18},{wch:9},{wch:18},{wch:14}];
 
     const det6=[["Machine","Type","Opérateurs","Date","Heure","Lot","N° Série","Succès","Col","Med","Gal","Pied","Corrigée"]];
     t6.forEach(s=>s.lots.forEach(l=>l.bouteilles.forEach(b=>{
@@ -1107,7 +1118,7 @@ export default function App() {
       buildTypeSection(rows, s6.length>0?"🫙 6 KG":"🫙 12.5 KG", sessions);
     }
     const ws=XLSX.utils.aoa_to_sheet(rows);
-    ws["!cols"]=[{wch:18},{wch:22},{wch:9},{wch:10},{wch:24},{wch:24},{wch:14},{wch:14},{wch:14},{wch:14}];
+    ws["!cols"]=[{wch:32},{wch:22},{wch:9},{wch:22},{wch:9},{wch:18},{wch:9},{wch:18},{wch:9},{wch:18},{wch:9},{wch:18},{wch:14}];
     const wb=XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws,"Résumé");
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR JOUR",byDay6,byDay125,byDayAll,fmtDate),"Stats Jours");
@@ -1167,17 +1178,6 @@ export default function App() {
       <div className="sav-sp"/><div className="sav-txt">SAUVEGARDE…</div>
     </div></div>
   ):null;
-
-  const TopBar=({title,sub,children})=>(
-    <div className="top-bar">
-      <div className="top-machine">{title||machine?.label}</div>
-      {sub&&<div className="chip tc">🫙 <span>{sub}</span></div>}
-      <div className="chips">
-        {machine&&!sub&&<div className="chip">⚙ <span>{machine.label}</span></div>}
-      </div>
-      <div className="top-right">{children}</div>
-    </div>
-  );
 
   /* ══════════════════════════════════════════════════════════
      SCREEN: MACHINE (accueil)
