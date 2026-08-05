@@ -427,6 +427,77 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
   flex-shrink:0;transition:transform .2s;}
 .mod-card:hover .mod-arrow{transform:translateX(4px);}
 .mod-back{position:absolute;top:14px;left:14px;z-index:2;}
+/* ═══════════════════════ PREMIUM GLASS THEME v2 ═══════════════════════ */
+:root{
+  --bg:#080b14;--bg2:#0f1626;--bg3:#18212f;
+  --border:rgba(255,255,255,.10);
+  --text:#eef2fb;--muted:#828fa8;--light:#aeb9cf;
+  --glass:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+  --glass-brd:1px solid rgba(255,255,255,.10);
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);
+  --accent-grad:linear-gradient(135deg,#ffd97a 0%,#f59e0b 55%,#fb8a3c 100%);
+}
+/* Fond premium unifié pour tous les écrans */
+.fs,.page{background:
+  radial-gradient(120% 85% at 50% -12%,rgba(245,158,11,.13),transparent 46%),
+  radial-gradient(85% 75% at 100% 0%,rgba(96,165,250,.10),transparent 52%),
+  radial-gradient(85% 85% at 0% 100%,rgba(167,139,250,.09),transparent 52%),
+  linear-gradient(180deg,#0b1020,#080b14) fixed;}
+
+/* Cartes & panneaux en verre */
+.card,.form-card{background:var(--glass);border:var(--glass-brd);border-radius:var(--radius);
+  box-shadow:var(--shadow);-webkit-backdrop-filter:blur(18px) saturate(1.15);backdrop-filter:blur(18px) saturate(1.15);}
+.op-section{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:12px;}
+.med-block,.sess-card,.corr-lot-card,.lot-mini,.corr-banner,.corr-stats-bar{border-radius:12px;}
+.med-block{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);}
+
+/* Barres translucides */
+.top-bar{background:linear-gradient(180deg,rgba(17,24,40,.74),rgba(11,16,28,.6));
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 10px 34px rgba(0,0,0,.4),0 1px 0 rgba(245,158,11,.22) inset;
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);}
+.val-bar,.bot-bar,.stats-row,.legend,.zstats{background:rgba(255,255,255,.03);
+  border-color:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+.sc2,.zsc{border-right:1px solid rgba(255,255,255,.06);}
+
+/* Champs de saisie */
+.op-inp,.pf-inp,.sc-inp,.hs-inp,.corr-note-inp{background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);border-radius:10px;transition:border .15s,box-shadow .15s,background .15s;}
+.op-inp:focus,.pf-inp:focus,.sc-inp:focus,.hs-inp:focus,.corr-note-inp:focus{
+  border-color:rgba(245,158,11,.7);box-shadow:0 0 0 3px rgba(245,158,11,.16);background:rgba(255,255,255,.07);}
+
+/* Boutons */
+.btn{border-radius:10px;}
+.btn-a{background:var(--accent-grad);color:#0a0e17;
+  box-shadow:0 6px 18px rgba(245,158,11,.32),inset 0 1px 0 rgba(255,255,255,.4);}
+.btn-a:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 10px 24px rgba(245,158,11,.4),inset 0 1px 0 rgba(255,255,255,.4);}
+.btn-gh{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.13);}
+.btn-gh:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.24);color:var(--text);}
+.fpill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;}
+
+/* Chips en pilule */
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;}
+
+/* Lignes de contrôle & zones */
+.b-row{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:12px;}
+.z-btn{background:rgba(255,255,255,.045);border:2px solid rgba(255,255,255,.1);border-radius:9px;}
+.z-btn:hover{border-color:rgba(255,255,255,.28);color:var(--text);}
+
+/* Tableaux */
+.rt thead th,.lmt thead th{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08);}
+.rt tbody td,.lmt tbody td{border-color:rgba(255,255,255,.06);}
+.rt tbody tr:hover td{background:rgba(245,158,11,.05);}
+
+/* Overlay & toasts */
+.sav-box{background:rgba(17,24,40,.85);border:1px solid rgba(245,158,11,.5);border-radius:16px;
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);}
+.toast{background:rgba(17,24,40,.92);border-radius:12px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+
+/* Cartes de module (lanceur) */
+.mod-card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 `;
 
