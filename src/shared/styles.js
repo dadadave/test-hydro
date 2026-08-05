@@ -1,6 +1,6 @@
 // Feuille de styles de l'application, injectée une seule fois dans le <head>.
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 :root{
   --bg:#0e1015;--bg2:#161b24;--bg3:#1e2530;--border:#2a3444;
   --amber:#f59e0b;--amber2:#fcd34d;--green:#10b981;--red:#ef4444;
@@ -497,6 +497,80 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 /* Cartes de module (lanceur) */
 .mod-card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);}
+
+/* ═══════════════════ THEME v3 — typographie & finitions ═══════════════════ */
+:root{
+  --disp:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --accent-grad:linear-gradient(135deg,#ffd27a 0%,#f59e0b 45%,#fb7a3c 100%);
+}
+body{letter-spacing:.1px;}
+
+/* Titres modernes (géométriques, plus gras, moins d'interlettrage) */
+.fs-title{font-weight:700;letter-spacing:-1.5px;}
+.form-title,.top-machine,.m-name,.bt-kg,.sv,.zs-n,.ab-label,.clc-num,.day-lbl,
+.med-name,.rlh-n,.lmh-n,.css2-v,.mod-name,.corr-banner-title,.sav-txt{font-weight:600;}
+.fs-badge,.card-lbl,.op-section-title{letter-spacing:2.5px;}
+
+/* Fond « aurore » animé (respecte prefers-reduced-motion plus bas) */
+.fs,.page{position:relative;overflow:hidden;}
+.fs::before,.page::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(40% 46% at 20% 26%,rgba(245,158,11,.18),transparent 60%),
+    radial-gradient(38% 42% at 84% 18%,rgba(96,165,250,.15),transparent 60%),
+    radial-gradient(46% 48% at 62% 94%,rgba(167,139,250,.14),transparent 60%);
+  filter:blur(26px);animation:aurora 20s ease-in-out infinite alternate;}
+.fs>*,.page>*{position:relative;z-index:1;}
+@keyframes aurora{
+  0%{transform:translate3d(-2%,-1%,0) scale(1.05) rotate(0deg);}
+  100%{transform:translate3d(3%,2%,0) scale(1.12) rotate(6deg);}
+}
+
+/* Cartes à bord dégradé (verre + liseré lumineux) */
+.card,.form-card,.mod-card{border:1px solid transparent;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02)) padding-box,
+    linear-gradient(140deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 42%,rgba(245,158,11,.38)) border-box;}
+
+/* ═══════════════════ THEME v4 — coquille « appli mobile » ═══════════════════ */
+/* Sur écran large : l'app s'affiche dans un vrai châssis de téléphone.
+   Sur mobile : plein écran natif (aucune de ces règles ne s'applique). */
+@media(min-width:540px){
+  body{background:radial-gradient(120% 120% at 50% -10%,#101a2e,#05070d 68%);}
+  #root{
+    width:432px;max-width:432px;margin:22px auto;
+    height:calc(100vh - 44px);overflow:hidden;position:relative;
+    border-radius:46px;
+    box-shadow:
+      0 50px 120px rgba(0,0,0,.7),
+      0 0 0 11px #04060c,0 0 0 12px rgba(255,255,255,.08),
+      inset 0 0 0 1px rgba(255,255,255,.05);
+  }
+  /* Encoche + barre gestuelle du téléphone */
+  #root::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:148px;height:27px;background:#04060c;border-radius:0 0 18px 18px;z-index:2000;pointer-events:none;}
+  #root::after{content:"";position:absolute;bottom:9px;left:50%;transform:translateX(-50%);
+    width:118px;height:5px;border-radius:3px;background:rgba(255,255,255,.4);z-index:2000;pointer-events:none;}
+  .fs,.page{min-height:100%;height:100%;}
+  /* Zones sûres (statut/encoche en haut, barre gestuelle en bas) */
+  .top-bar{padding-top:36px;}
+  .fs{padding-top:52px;padding-bottom:38px;}
+  .bot-bar,.val-bar{padding-bottom:24px;}
+  .mod-back{top:40px;left:16px;}
+  /* Le châssis fait 432px : on force les dispositions « mobile » (les media
+     queries se basent sinon sur la largeur réelle du navigateur, pas du cadre). */
+  .mods-grid{grid-template-columns:1fr;}
+  .serial-grid{grid-template-columns:repeat(2,1fr);}
+  .fs-title{font-size:52px;}
+}
+
+/* Composants plus « natifs » (touch-friendly) */
+.btn{padding:11px 18px;}
+.btn-a{border-radius:12px;}
+.op-inp,.pf-inp,.hs-inp,.corr-note-inp{padding:11px 13px;font-size:14px;}
+.card,.form-card{border-radius:24px;}
+.m-btn,.action-btn,.bt-btn,.mod-card{border-radius:18px;}
+.chip{padding:4px 10px;}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 `;
