@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test("affiche l'écran de sélection de la machine", () => {
+test('affiche le lanceur avec les modules disponibles', () => {
   render(<App />);
-  const heading = screen.getByText(/Sélectionnez la machine/i);
-  expect(heading).toBeInTheDocument();
+  expect(screen.getByText('Test Hydrostatique')).toBeInTheDocument();
+  expect(screen.getByText('Test Fuite')).toBeInTheDocument();
 });
