@@ -31,12 +31,14 @@ export default function FuiteModule({ onExit }) {
   const mark = (i, val) =>
     setChecks((prev) => ({ ...prev, [i]: prev[i] === val ? undefined : val }));
 
-  const filled = serials.map((s, i) => (s.trim() ? i : null)).filter((i) => i !== null);
-  const nEtanche = filled.filter((i) => checks[i] === "etanche").length;
-  const nFuite = filled.filter((i) => checks[i] === "fuite").length;
+  // Une bouteille fait partie du lot dès qu'elle a un N° de série OU un statut coché
+  // (le N° de série est optionnel pour le test de fuite).
+  const active = serials.map((s, i) => (s.trim() || checks[i] ? i : null)).filter((i) => i !== null);
+  const nEtanche = active.filter((i) => checks[i] === "etanche").length;
+  const nFuite = active.filter((i) => checks[i] === "fuite").length;
   const taux = nEtanche + nFuite > 0 ? Math.round((nEtanche / (nEtanche + nFuite)) * 100) : null;
   const methodLabel = DETECTION_METHODS.find((m) => m.id === method)?.label || method;
-  const allMarked = filled.length > 0 && filled.every((i) => checks[i]);
+  const allMarked = active.length > 0 && active.every((i) => checks[i]);
 
   // Enregistre le lot courant dans Supabase (session + bouteilles).
   const save = async () => {
@@ -49,8 +51,8 @@ export default function FuiteModule({ onExit }) {
         pression: params.pression, duree: params.duree, operateur: ops || null, date: params.date,
       }).select("id").single();
       if (sErr) throw sErr;
-      const rows = filled.map((i) => ({
-        session_id: sess.id, num_serie: serials[i].trim(), etanche: checks[i] === "etanche",
+      const rows = active.map((i) => ({
+        session_id: sess.id, num_serie: serials[i].trim() || null, etanche: checks[i] === "etanche",
       }));
       const { error: bErr } = await supabase.from("fuite_bouteilles").insert(rows);
       if (bErr) throw bErr;
@@ -183,7 +185,7 @@ export default function FuiteModule({ onExit }) {
       </div>
 
       <div className="stats-row">
-        <div className="sc2"><div className="sv bl">{filled.length}</div><div className="sl">Saisies</div></div>
+        <div className="sc2"><div className="sv bl">{active.length}</div><div className="sl">Contrôlées</div></div>
         <div className="sc2"><div className="sv gr">{nEtanche}</div><div className="sl">✓ Étanches</div></div>
         <div className="sc2"><div className="sv re">{nFuite}</div><div className="sl">✗ Fuites</div></div>
         <div className="sc2"><div className="sv am">{taux !== null ? taux + "%" : "—"}</div><div className="sl">Étanchéité</div></div>
