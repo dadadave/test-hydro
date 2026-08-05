@@ -400,6 +400,33 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:h
 .form-card{animation:cardIn .45s cubic-bezier(.2,.7,.3,1) both;}
 .bt-btn:active{transform:translateY(-1px);}
 .b-row{animation:fadeDown .3s ease both;}
+/* ═══════════════════════ MODULE LAUNCHER ═══════════════════════ */
+.mods-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:560px){.mods-grid{grid-template-columns:1fr 1fr;}}
+.mod-card{background:linear-gradient(180deg,var(--bg3),rgba(22,27,36,.9));
+  border:2px solid var(--border);border-radius:10px;padding:20px 18px;cursor:pointer;
+  transition:all .2s cubic-bezier(.2,.7,.3,1);position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:16px;text-align:left;width:100%;
+  animation:cardIn .5s cubic-bezier(.2,.7,.3,1) both;}
+.mod-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--accent,var(--amber));opacity:.65;transition:opacity .2s,width .2s;}
+.mod-card:hover{transform:translateY(-3px);border-color:var(--accent,var(--amber));
+  box-shadow:0 14px 32px rgba(0,0,0,.45),0 0 26px color-mix(in srgb,var(--accent,var(--amber)) 20%,transparent);}
+.mod-card:hover::before{width:5px;opacity:1;}
+.mod-card:active{transform:translateY(-1px);}
+.mod-card.soon{cursor:not-allowed;opacity:.5;}
+.mod-card.soon:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.mod-ic{font-size:34px;line-height:1;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(0,0,0,.4));}
+.mod-body{flex:1;min-width:0;}
+.mod-name{font-family:var(--disp);font-size:clamp(17px,4.5vw,23px);letter-spacing:2px;
+  color:var(--accent,var(--amber2));line-height:1.05;margin-bottom:4px;}
+.mod-desc{font-family:var(--mono);font-size:8.5px;color:var(--light);letter-spacing:.5px;line-height:1.5;}
+.mod-tag{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:7px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--muted);border:1px solid var(--border);border-radius:2px;padding:1px 6px;}
+.mod-arrow{font-family:var(--disp);font-size:20px;color:var(--accent,var(--amber));
+  flex-shrink:0;transition:transform .2s;}
+.mod-card:hover .mod-arrow{transform:translateX(4px);}
+.mod-back{position:absolute;top:14px;left:14px;z-index:2;}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 `;
 

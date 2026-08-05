@@ -1,12 +1,13 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import * as XLSX from "xlsx";
+import * as XLSX from "xlsx-js-style";
+import { beautifyWorkbook } from "./utils/excelStyle";
 import { supabase } from "../../shared/lib/supabase";
 import { MACHINES, BOTTLE_TYPES, ZONES, BATCH_SIZE } from "./constants";
 import { fmtDate, fmtTime, fmtMonth, pct } from "../../shared/utils/format";
 import { calcBotsStats, computeStats } from "./utils/stats";
-import { injectCSS } from "./styles";
+import { injectCSS } from "../../shared/styles";
 
-export default function HydroModule() {
+export default function HydroModule({ onExit }) {
   useEffect(() => { injectCSS(); }, []);
   const sb = supabase;
 
@@ -347,6 +348,7 @@ export default function HydroModule() {
     XLSX.utils.book_append_sheet(wb, ws1, "Résumé");
     XLSX.utils.book_append_sheet(wb, ws2, "Détail Bouteilles");
     XLSX.utils.book_append_sheet(wb, ws3, "Analyse Zones");
+    beautifyWorkbook(XLSX, wb);
     XLSX.writeFile(wb, `corrections_${corrParams.date}.xlsx`);
     toast("✅ Rapport corrections exporté !");
   };
@@ -633,6 +635,7 @@ export default function HydroModule() {
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR JOUR",byDay6,byDay125,byDayAll,fmtDate),"Stats Jours");
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR SEMAINE",byWeek6,byWeek125,byWeekAll,k=>`Semaine ${k}`),"Stats Semaines");
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR MOIS",byMonth6,byMonth125,byMonthAll,fmtMonth),"Stats Mois");
+    beautifyWorkbook(XLSX, wb);
     XLSX.writeFile(wb,`qualite_${day}.xlsx`);
     toast(`✅ Rapport ${day} téléchargé !`);
   };
@@ -664,6 +667,7 @@ export default function HydroModule() {
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR JOUR",byDay6,byDay125,byDayAll,fmtDate),"Stats Jours");
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR SEMAINE",byWeek6,byWeek125,byWeekAll,k=>`Semaine ${k}`),"Stats Semaines");
     XLSX.utils.book_append_sheet(wb,buildStatsSheet("PAR MOIS",byMonth6,byMonth125,byMonthAll,fmtMonth),"Stats Mois");
+    beautifyWorkbook(XLSX, wb);
     XLSX.writeFile(wb,`hydro_${macName.replace(/\s+/g,"_")}_${day}.xlsx`);
     toast(`✅ ${macName} exporté !`);
   };
@@ -724,6 +728,7 @@ export default function HydroModule() {
   ══════════════════════════════════════════════════════════ */
   if (screen==="machine") return (
     <div className="fs"><div className="fs-grid"/>
+      {onExit&&<button className="btn btn-gh btn-sm mod-back" onClick={onExit}>◀ Modules</button>}
       <div className="fs-badge">⚙ WONDERFUL METAL · QC</div>
       <div className="fs-title">TEST <span>HYDRO</span>STATIQUE</div>
       <div className="fs-sub">PRESSION 30 BARS</div>

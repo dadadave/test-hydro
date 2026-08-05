@@ -1,9 +1,20 @@
+import { useState, useEffect } from "react";
 import { MODULES } from "./modules/registry";
+import ModuleLauncher from "./ModuleLauncher";
+import { injectCSS } from "./shared/styles";
 
-// Coquille applicative. Un seul module actif pour l'instant (Test Hydrostatique),
-// mais l'architecture (voir src/modules/registry.js) est prête à en accueillir d'autres.
+// Coquille applicative.
+// - Aucune sélection : affiche le lanceur qui liste les modules (Test Hydro, Test Fuite, …).
+// - Un module sélectionné : monte son composant, avec onExit pour revenir au lanceur.
 export default function App() {
-  const active = MODULES[0];
+  useEffect(() => { injectCSS(); }, []);
+  const [activeId, setActiveId] = useState(null);
+
+  const active = MODULES.find((m) => m.id === activeId);
+  if (!active) {
+    return <ModuleLauncher modules={MODULES} onSelect={setActiveId} />;
+  }
+
   const ModuleComponent = active.Component;
-  return <ModuleComponent />;
+  return <ModuleComponent onExit={() => setActiveId(null)} />;
 }
