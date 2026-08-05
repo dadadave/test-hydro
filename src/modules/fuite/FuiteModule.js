@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { supabase } from "../../shared/lib/supabase";
 import { FUITE_MACHINES, FUITE_BOTTLE_TYPES, DETECTION_METHODS, FUITE_BATCH_SIZE } from "./constants";
 
-// Module Test Fuite (étanchéité). Front-end autonome : sélection machine → options →
-// contrôle (étanche / fuite). Données en mémoire pour l'instant (prêt à connecter à Supabase).
+// Module Test Fuite (étanchéité) : sélection machine → options → contrôle (étanche / fuite).
+// Persistance Supabase (tables fuite_sessions / fuite_bouteilles).
 export default function FuiteModule({ onExit }) {
   const [screen, setScreen] = useState("machine"); // machine | options | control
   const [machine, setMachine] = useState(null);
@@ -13,6 +14,14 @@ export default function FuiteModule({ onExit }) {
   });
   const [serials, setSerials] = useState(Array(FUITE_BATCH_SIZE).fill(""));
   const [checks, setChecks] = useState({}); // idx -> "etanche" | "fuite"
+  const [saving, setSaving] = useState(false);
+  const [savedCount, setSavedCount] = useState(0);
+  const [toasts, setToasts] = useState([]);
+  const toast = useCallback((msg, err = false) => {
+    const id = Date.now();
+    setToasts((t) => [...t, { id, msg, err }]);
+    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3500);
+  }, []);
 
   const setP = (k, v) => setParams((p) => ({ ...p, [k]: v }));
   const setSerial = (i, raw) => {
@@ -27,6 +36,38 @@ export default function FuiteModule({ onExit }) {
   const nFuite = filled.filter((i) => checks[i] === "fuite").length;
   const taux = nEtanche + nFuite > 0 ? Math.round((nEtanche / (nEtanche + nFuite)) * 100) : null;
   const methodLabel = DETECTION_METHODS.find((m) => m.id === method)?.label || method;
+  const allMarked = filled.length > 0 && filled.every((i) => checks[i]);
+
+  // Enregistre le lot courant dans Supabase (session + bouteilles).
+  const save = async () => {
+    if (!allMarked) { toast("Marquez chaque bouteille (étanche ou fuite).", true); return; }
+    setSaving(true);
+    try {
+      const ops = [params.op1, params.op2].filter(Boolean).join(" / ");
+      const { data: sess, error: sErr } = await supabase.from("fuite_sessions").insert({
+        machine: machine?.label || null, bottle_type: bottleType, methode: method,
+        pression: params.pression, duree: params.duree, operateur: ops || null, date: params.date,
+      }).select("id").single();
+      if (sErr) throw sErr;
+      const rows = filled.map((i) => ({
+        session_id: sess.id, num_serie: serials[i].trim(), etanche: checks[i] === "etanche",
+      }));
+      const { error: bErr } = await supabase.from("fuite_bouteilles").insert(rows);
+      if (bErr) throw bErr;
+      setSavedCount((c) => c + 1);
+      setSerials(Array(FUITE_BATCH_SIZE).fill(""));
+      setChecks({});
+      toast(`✅ Lot enregistré — ${rows.length} bouteille(s) !`);
+    } catch (err) { toast("Erreur : " + err.message, true); }
+    finally { setSaving(false); }
+  };
+
+  const Overlay = () => (saving ? (
+    <div className="sav-ov"><div className="sav-box"><div className="sav-sp" /><div className="sav-txt">ENREGISTREMENT…</div></div></div>
+  ) : null);
+  const Toasts = () => (
+    <div className="tw">{toasts.map((t) => <div key={t.id} className={`toast${t.err ? " e" : ""}`}>{t.msg}</div>)}</div>
+  );
 
   /* ── Écran 1 : sélection de la machine ── */
   if (screen === "machine") return (
@@ -133,6 +174,7 @@ export default function FuiteModule({ onExit }) {
           <div className="chip">🔎 <span>{methodLabel}</span></div>
           <div className="chip">⚙ <span>{params.pression} bar</span></div>
           <div className="chip">⏱ <span>{params.duree}s</span></div>
+          {savedCount > 0 && <div className="chip ok">☁ <span>{savedCount} lot(s)</span></div>}
         </div>
         <div className="top-right">
           <button className="btn btn-gh btn-sm" onClick={() => setScreen("options")}>← Options</button>
@@ -189,8 +231,13 @@ export default function FuiteModule({ onExit }) {
         <div style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
           <button className="btn btn-gh btn-sm"
             onClick={() => { setSerials(Array(FUITE_BATCH_SIZE).fill("")); setChecks({}); }}>↺ Réinitialiser</button>
+          <button className="btn btn-a btn-sm" disabled={!allMarked || saving}
+            style={{ opacity: allMarked && !saving ? 1 : 0.4 }} onClick={save}>
+            {saving ? "…" : "VALIDER ✓"}
+          </button>
         </div>
       </div>
+      <Overlay /><Toasts />
     </div>
   );
 }
