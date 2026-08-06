@@ -12,7 +12,7 @@ export default function HydroModule({ onExit }) {
   const sb = supabase;
 
   // ── Navigation ──
-  const [screen,     setScreen]     = useState("machine");
+  const [screen,     setScreen]     = useState("home");
   const [machine,    setMachine]    = useState(null);
   const [bottleType, setBottleType] = useState(null);
   const [params,     setParams]     = useState({
@@ -726,14 +726,53 @@ export default function HydroModule({ onExit }) {
   /* ══════════════════════════════════════════════════════════
      SCREEN: MACHINE (accueil)
   ══════════════════════════════════════════════════════════ */
-  if (screen==="machine") return (
+  /* ══════════════════════════════════════════════════════════
+     SCREEN: HOME (accueil du module — actions)
+  ══════════════════════════════════════════════════════════ */
+  if (screen==="home") return (
     <div className="fs"><div className="fs-grid"/>
       {onExit&&<button className="btn btn-gh btn-sm mod-back" onClick={onExit}>◀ Modules</button>}
       <div className="fs-badge">⚙ WONDERFUL METAL · QC</div>
       <div className="fs-title">TEST <span>HYDRO</span>STATIQUE</div>
       <div className="fs-sub">PRESSION 30 BARS</div>
       <div className="card">
-        <div className="card-lbl">Sélectionnez la machine</div>
+        <div className="card-lbl">Que voulez-vous faire ?</div>
+        <div className="home-actions">
+          <button className="action-btn ab-new" onClick={()=>setScreen("params")}>
+            <div className="ab-icon">🧪</div>
+            <div className="ab-label" style={{color:"var(--amber)"}}>NOUVEAU TEST</div>
+            <div className="ab-sub">Opérateurs → Type → N° série → Médianne</div>
+          </button>
+          <div className="home-action-row">
+            <button className="action-btn ab-fix"
+              onClick={()=>{ setCorrStep("params"); setScreen("corriger"); }}>
+              <div className="ab-icon">🔧</div>
+              <div className="ab-label" style={{color:"var(--red)"}}>CORRIGER</div>
+              <div className="ab-sub">Saisir lot de corrections</div>
+            </button>
+            <button className="action-btn ab-hist"
+              onClick={()=>{setHistData(null);setScreen("history");}}>
+              <div className="ab-icon">📋</div>
+              <div className="ab-label" style={{color:"var(--blue)"}}>HISTORIQUE</div>
+              <div className="ab-sub">Tests & corrections</div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <Toasts/>
+    </div>
+  );
+
+  /* ══════════════════════════════════════════════════════════
+     SCREEN: MACHINE (choix de la médianne — avant-dernière étape)
+  ══════════════════════════════════════════════════════════ */
+  if (screen==="machine") return (
+    <div className="fs"><div className="fs-grid"/>
+      <div className="fs-badge">🫙 {bottleType} · 👥 {[params.op1,params.op2].filter(Boolean).join(" & ")||"—"}</div>
+      <div className="fs-title">CHOISIR LA <span>MÉDIANNE</span></div>
+      <div className="fs-sub">SUR QUELLE MACHINE ?</div>
+      <div className="card">
+        <div className="card-lbl">Sélectionnez la médianne</div>
         <div className="machine-grid">
           {MACHINES.map(m=>(
             <button key={m.id} className={`m-btn${machine?.id===m.id?" sel":""}`} onClick={()=>setMachine(m)}>
@@ -742,31 +781,10 @@ export default function HydroModule({ onExit }) {
             </button>
           ))}
         </div>
-        <div className="home-actions">
-          <div className="home-action-row">
-            <button className="action-btn ab-new" style={{opacity:machine?1:0.35}}
-              onClick={()=>{if(machine)setScreen("bottletype");}}>
-              <div className="ab-icon">🧪</div>
-              <div className="ab-label" style={{color:"var(--amber)"}}>NOUVEAU TEST</div>
-              <div className="ab-sub">Démarrer un nouveau lot</div>
-            </button>
-            <button className="action-btn ab-fix"
-              onClick={()=>{ setCorrStep("params"); setScreen("corriger"); }}>
-              <div className="ab-icon">🔧</div>
-              <div className="ab-label" style={{color:"var(--red)"}}>CORRIGER</div>
-              <div className="ab-sub">Saisir lot de corrections</div>
-            </button>
-          </div>
-          <button className="action-btn ab-hist" style={{padding:"10px 12px"}}
-            onClick={()=>{setHistData(null);setScreen("history");}}>
-            <div style={{display:"flex",alignItems:"center",gap:10}}>
-              <div className="ab-icon">📋</div>
-              <div>
-                <div className="ab-label" style={{color:"var(--blue)"}}>HISTORIQUE</div>
-                <div className="ab-sub">Tests et corrections enregistrés</div>
-              </div>
-            </div>
-          </button>
+        <div style={{display:"flex",justifyContent:"space-between"}}>
+          <button className="btn btn-gh" onClick={()=>setScreen("serials")}>← N°</button>
+          <button className="btn btn-a" style={{opacity:machine?1:0.35}}
+            onClick={()=>{if(machine)setScreen("control");}}>CONTRÔLER →</button>
         </div>
       </div>
       <Toasts/>
@@ -778,7 +796,7 @@ export default function HydroModule({ onExit }) {
   ══════════════════════════════════════════════════════════ */
   if (screen==="bottletype") return (
     <div className="fs"><div className="fs-grid"/>
-      <div className="fs-badge">⚙ {machine?.label}</div>
+      <div className="fs-badge">👥 {[params.op1,params.op2].filter(Boolean).join(" & ")||"TEST HYDRO"}</div>
       <div className="fs-title">TYPE <span>BOUTEILLE</span></div>
       <div className="card">
         <div className="btype-grid">
@@ -790,9 +808,9 @@ export default function HydroModule({ onExit }) {
           ))}
         </div>
         <div style={{display:"flex",justifyContent:"space-between"}}>
-          <button className="btn btn-gh" onClick={()=>{setBottleType(null);setScreen("machine");}}>← Retour</button>
+          <button className="btn btn-gh" onClick={()=>setScreen("params")}>← Retour</button>
           <button className="btn btn-a" style={{opacity:bottleType?1:0.35}}
-            onClick={()=>{if(bottleType)setScreen("params");}}>SUIVANT →</button>
+            onClick={()=>{if(bottleType)setScreen("serials");}}>SUIVANT →</button>
         </div>
       </div>
       <Toasts/>
@@ -805,13 +823,15 @@ export default function HydroModule({ onExit }) {
   if (screen==="params") return (
     <div className="page">
       <div className="top-bar">
-        <div className="top-machine">{machine?.label}</div>
-        <div className="chip tc">🫙 <span>{bottleType}</span></div>
+        <div className="top-machine">🧪 TEST HYDRO</div>
+        <div className="top-right">
+          <button className="btn btn-gh btn-sm" onClick={()=>setScreen("home")}>← Accueil</button>
+        </div>
       </div>
       <div className="center-body">
         <div className="form-card" style={{maxWidth:620}}>
           <div className="form-title">Paramètres de session</div>
-          <div className="form-sub">OPÉRATEURS, DATE ET PRESSION</div>
+          <div className="form-sub">ÉTAPE 1 — OPÉRATEURS, DATE ET PRESSION</div>
           <div className="op-section">
             <div className="op-section-title">👥 Opérateurs</div>
             <div className="op-row">
@@ -828,8 +848,8 @@ export default function HydroModule({ onExit }) {
               <input className="pf-inp" value={params.pression} onChange={e=>setP("pression",e.target.value)}/></div>
           </div>
           <div style={{display:"flex",justifyContent:"space-between",marginTop:4}}>
-            <button className="btn btn-gh" onClick={()=>setScreen("bottletype")}>← Retour</button>
-            <button className="btn btn-a" onClick={()=>setScreen("serials")}>COMMENCER →</button>
+            <button className="btn btn-gh" onClick={()=>setScreen("home")}>← Accueil</button>
+            <button className="btn btn-a" onClick={()=>setScreen("bottletype")}>SUIVANT →</button>
           </div>
         </div>
       </div>
@@ -843,7 +863,7 @@ export default function HydroModule({ onExit }) {
   if (screen==="serials") return (
     <div className="page">
       <div className="top-bar">
-        <div className="top-machine">{machine?.label}</div>
+        <div className="top-machine">🧪 TEST HYDRO</div>
         <div className="chip tc">🫙 <span>{bottleType}</span></div>
         <div className="chips">
           <div className="chip">📅 <span>{params.date}</span></div>
@@ -871,13 +891,13 @@ export default function HydroModule({ onExit }) {
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}}>
             <div style={{display:"flex",gap:6}}>
               {lots.length>0&&<button className="btn btn-gh" onClick={()=>setScreen("recap")}>← Récap</button>}
-              <button className="btn btn-gh" onClick={()=>setScreen("params")}>← Params</button>
+              <button className="btn btn-gh" onClick={()=>setScreen("bottletype")}>← Type</button>
             </div>
             <div style={{display:"flex",gap:8,alignItems:"center"}}>
               <span style={{fontFamily:"var(--mono)",fontSize:9,color:"var(--muted)"}}>{serials.filter(s=>s.trim()).length}/{BATCH_SIZE}</span>
               {hasDups&&<span style={{fontFamily:"var(--mono)",fontSize:8,color:"#ef4444"}}>⚠ Doublons</span>}
               <button className="btn btn-a" style={{opacity:serials.some(s=>s.trim())&&!hasDups?1:0.35}}
-                onClick={()=>{if(serials.some(s=>s.trim())&&!hasDups)setScreen("control");}}>CONTRÔLER →</button>
+                onClick={()=>{if(serials.some(s=>s.trim())&&!hasDups)setScreen("machine");}}>MÉDIANNE →</button>
             </div>
           </div>
         </div>
@@ -944,7 +964,7 @@ export default function HydroModule({ onExit }) {
           {!allChecked&&curCocked>0&&<span className="val-warn">Cochez toutes les bouteilles pour valider</span>}
         </div>
         <div style={{marginLeft:"auto",display:"flex",gap:6}}>
-          <button className="btn btn-gh" onClick={()=>setScreen("serials")}>← N°</button>
+          <button className="btn btn-gh" onClick={()=>setScreen("machine")}>← Médianne</button>
           <button className="btn btn-a" style={{opacity:allChecked&&!saving?1:0.35}} onClick={validateLot}>
             {saving?"…":"VALIDER ✓"}
           </button>
@@ -1068,7 +1088,7 @@ export default function HydroModule({ onExit }) {
         <div className="top-machine" style={{color:"#ef4444"}}>🔧 CORRIGER</div>
         {machine&&<div className="chip">⚙ <span>{machine.label}</span></div>}
         <div className="top-right">
-          <button className="btn btn-gh btn-sm" onClick={()=>setScreen("machine")}>← Accueil</button>
+          <button className="btn btn-gh btn-sm" onClick={()=>setScreen("home")}>← Accueil</button>
         </div>
       </div>
       <div className="center-body">
@@ -1100,7 +1120,7 @@ export default function HydroModule({ onExit }) {
               onChange={e=>setCorrParams(p=>({...p,date:e.target.value}))}/>
           </div>
           <div style={{display:"flex",justifyContent:"space-between"}}>
-            <button className="btn btn-gh" onClick={()=>setScreen("machine")}>← Annuler</button>
+            <button className="btn btn-gh" onClick={()=>setScreen("home")}>← Annuler</button>
             <button className="btn btn-a" onClick={()=>setCorrStep("serials")}>SAISIR LES N° →</button>
           </div>
         </div>
@@ -1325,7 +1345,7 @@ export default function HydroModule({ onExit }) {
         </div>
         <div className="top-right">
           {corrLots.length>0&&<button className="btn btn-g btn-sm" onClick={buildCorrectionExcel}>📊 Excel</button>}
-          <button className="btn btn-gh btn-sm" onClick={()=>setScreen("machine")}>← Accueil</button>
+          <button className="btn btn-gh btn-sm" onClick={()=>setScreen("home")}>← Accueil</button>
         </div>
       </div>
 
@@ -1441,7 +1461,7 @@ export default function HydroModule({ onExit }) {
         </div>
         <div className="top-right">
           <button className="btn btn-gh btn-sm" onClick={loadHistory}>↺</button>
-          <button className="btn btn-a btn-sm" onClick={()=>setScreen("machine")}>← Accueil</button>
+          <button className="btn btn-a btn-sm" onClick={()=>setScreen("home")}>← Accueil</button>
         </div>
       </div>
       <div className="hist-body">
