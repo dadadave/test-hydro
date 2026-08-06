@@ -513,14 +513,13 @@ body{letter-spacing:.1px;}
 .fs-badge,.card-lbl,.op-section-title{letter-spacing:2.5px;}
 
 /* Fond « aurore » animé (respecte prefers-reduced-motion plus bas) */
-.fs,.page{position:relative;overflow:hidden;}
-.fs::before,.page::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+.fs,.page{position:relative;overflow:hidden;isolation:isolate;}
+.fs::before,.page::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
   background:
     radial-gradient(40% 46% at 20% 26%,rgba(245,158,11,.18),transparent 60%),
     radial-gradient(38% 42% at 84% 18%,rgba(96,165,250,.15),transparent 60%),
     radial-gradient(46% 48% at 62% 94%,rgba(167,139,250,.14),transparent 60%);
   filter:blur(26px);animation:aurora 20s ease-in-out infinite alternate;}
-.fs>*,.page>*{position:relative;z-index:1;}
 @keyframes aurora{
   0%{transform:translate3d(-2%,-1%,0) scale(1.05) rotate(0deg);}
   100%{transform:translate3d(3%,2%,0) scale(1.12) rotate(6deg);}
